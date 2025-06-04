@@ -1,4 +1,6 @@
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useIsMobile } from "../../hooks/useIsMobile";
+import Toolbar from "../Toolbar/Toolbar";
 import { Button } from "../ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import Controls from "./Controls/Controls";
@@ -10,7 +12,7 @@ interface MenuProps {
 }
 
 const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
-  const isMobile = true;
+  const isMobile = useIsMobile();
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -19,7 +21,7 @@ const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
       </SheetTrigger>
       <SheetContent
         side={isMobile ? "bottom" : "left"}
-        className="p-4 w-full max-w-sm"
+        className="p-4 w-full max-w-sm flex flex-col h-full"
       >
         <Tabs defaultValue="controls" className="w-full">
           <TabsList className="grid grid-cols-2">
@@ -33,6 +35,9 @@ const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
             <Gallery />
           </TabsContent>
         </Tabs>
+        <div className="hidden md:block mt-auto">
+          <Toolbar />
+        </div>
       </SheetContent>
     </Sheet>
   );

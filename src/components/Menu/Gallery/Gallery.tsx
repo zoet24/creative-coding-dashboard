@@ -1,4 +1,4 @@
-import { Badge } from "lucide-react";
+import { Badge } from "../../ui/badge";
 import { Card } from "../../ui/card";
 import { Input } from "../../ui/input";
 
