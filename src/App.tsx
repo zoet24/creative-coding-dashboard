@@ -1,14 +1,26 @@
 import { useState } from "react";
-import { Button } from "./components/ui/button";
-import "./index.css";
+import Canvas from "./components/Canvas/Canvas";
+import Menu from "./components/Menu/Menu";
+import Toolbar from "./components/Toolbar/Toolbar";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(true);
 
   return (
-    <>
-      <Button>Click me</Button>
-    </>
+    <div className="relative w-screen h-screen overflow-hidden bg-background text-foreground">
+      {/* Canvas - full screen */}
+      <Canvas />
+
+      {/* Toolbar (mobile top / desktop bottom) */}
+      <div className="absolute top-0 left-0 right-0 p-2 md:hidden z-10">
+        <Toolbar />
+      </div>
+
+      {/* Menu (bottom drawer on mobile, side panel on desktop) */}
+      <div className="absolute bottom-0 left-0 right-0 md:static md:flex z-20">
+        <Menu isOpen={menuOpen} setIsOpen={setMenuOpen} />
+      </div>
+    </div>
   );
 }
 
