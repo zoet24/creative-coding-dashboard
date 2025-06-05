@@ -1,7 +1,7 @@
 export const loadProject = async (projectNumber: string) => {
   try {
-    const module = await import(`../projects/day-${projectNumber}/index`);
-    const config = (await import(`../projects/day-${projectNumber}/config`))
+    const module = await import(`../projects/${projectNumber}/index`);
+    const config = (await import(`../projects/${projectNumber}/config`))
       .default;
 
     return {

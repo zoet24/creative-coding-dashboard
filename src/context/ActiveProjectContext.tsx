@@ -48,15 +48,13 @@ export const ActiveProjectProvider = ({
 
   useEffect(() => {
     const load = async () => {
-      const defaultProject = await loadProject("002");
+      const defaultProject = await loadProject("day-001");
       if (defaultProject) {
         setProject(defaultProject);
       }
     };
     load();
   }, []);
-
-  console.log(component, config, setProject);
 
   return (
     <ActiveProjectContext.Provider value={{ component, config, setProject }}>

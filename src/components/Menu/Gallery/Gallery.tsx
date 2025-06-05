@@ -1,17 +1,25 @@
 import { useEffect, useState } from "react";
 import { useActiveProject } from "../../../context/ActiveProjectContext";
+import { loadProject } from "../../../lib/loadProject";
 import { loadProjects } from "../../../lib/loadProjects";
 import { ProjectConfig, projectCategories } from "../../../lib/types";
 import ProjectCard from "../../ProjectCard/ProjectCard";
 import { Input } from "../../ui/input";
 
 const Gallery = () => {
-  const { setProject } = useActiveProject();
   const [projects, setProjects] = useState<ProjectConfig[]>([]);
+  const { setProject, config: activeConfig } = useActiveProject();
 
   useEffect(() => {
     loadProjects().then(setProjects);
   }, []);
+
+  const handleProjectClick = async (project: ProjectConfig) => {
+    const loadedProject = await loadProject(project.slug);
+    if (loadedProject) {
+      setProject(loadedProject);
+    }
+  };
 
   return (
     <div className="p-4 space-y-4">
@@ -27,7 +35,12 @@ const Gallery = () => {
         </select>
       </div>
       {projects.map((project, i) => (
-        <ProjectCard key={i} project={project} isActive={false} />
+        <ProjectCard
+          key={i}
+          project={project}
+          isActive={activeConfig?.slug === project.slug}
+          onClick={() => handleProjectClick(project)}
+        />
       ))}
     </div>
   );
