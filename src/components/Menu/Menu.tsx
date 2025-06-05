@@ -1,5 +1,7 @@
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useActiveProject } from "../../context/ActiveProjectContext";
 import { useIsMobile } from "../../hooks/useIsMobile";
+import ProjectCard from "../ProjectCard/ProjectCard";
 import Toolbar from "../Toolbar/Toolbar";
 import { Button } from "../ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
@@ -12,6 +14,7 @@ interface MenuProps {
 }
 
 const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
+  const { config: activeProject } = useActiveProject();
   const isMobile = useIsMobile();
 
   return (
@@ -23,6 +26,11 @@ const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
         side={isMobile ? "bottom" : "left"}
         className="p-4 w-full max-w-sm flex flex-col h-full"
       >
+        {activeProject && (
+          <div className="mb-4">
+            <ProjectCard project={activeProject} isActive={true} />
+          </div>
+        )}
         <Tabs defaultValue="controls" className="w-full">
           <TabsList className="grid grid-cols-2">
             <TabsTrigger value="controls">Controls</TabsTrigger>

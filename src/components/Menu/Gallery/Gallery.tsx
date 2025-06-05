@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { useActiveProject } from "../../../context/ActiveProjectContext";
 import { loadProjects } from "../../../lib/loadProjects";
 import { ProjectConfig, projectCategories } from "../../../lib/types";
 import ProjectCard from "../../ProjectCard/ProjectCard";
 import { Input } from "../../ui/input";
 
 const Gallery = () => {
+  const { setProject } = useActiveProject();
   const [projects, setProjects] = useState<ProjectConfig[]>([]);
 
   useEffect(() => {
@@ -25,7 +27,7 @@ const Gallery = () => {
         </select>
       </div>
       {projects.map((project, i) => (
-        <ProjectCard key={i} project={project} />
+        <ProjectCard key={i} project={project} isActive={false} />
       ))}
     </div>
   );

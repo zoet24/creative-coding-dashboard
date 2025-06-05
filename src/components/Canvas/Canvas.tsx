@@ -1,20 +1,7 @@
-import { useEffect, useState } from "react";
-import { loadDefaultProject } from "../../lib/loadDefaultProject";
-import { ProjectComponent } from "../../lib/types";
+import { useActiveProject } from "../../context/ActiveProjectContext";
 
 const Canvas = () => {
-  const [ActiveProject, setActiveProject] = useState<ProjectComponent | null>(
-    null
-  );
-
-  useEffect(() => {
-    const load = async () => {
-      const project = await loadDefaultProject();
-      setActiveProject(() => project);
-    };
-
-    load();
-  }, []);
+  const { component: ActiveProject } = useActiveProject();
 
   return (
     <div className="w-full h-full bg-white flex items-center justify-center">

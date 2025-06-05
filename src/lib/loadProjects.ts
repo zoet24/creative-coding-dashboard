@@ -1,3 +1,5 @@
+import { ProjectConfig } from "./types";
+
 export const loadProjects = async (): Promise<ProjectConfig[]> => {
   const configFiles = import.meta.glob("../projects/day-*/config.ts");
 
