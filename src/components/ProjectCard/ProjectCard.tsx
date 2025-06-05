@@ -1,6 +1,6 @@
-import { ProjectConfig } from "../../../lib/types";
-import { Badge } from "../../ui/badge";
-import { Card } from "../../ui/card";
+import { ProjectConfig } from "../../lib/types";
+import { Badge } from "../ui/badge";
+import { Card } from "../ui/card";
 
 interface ProjectCardProps {
   project: ProjectConfig;

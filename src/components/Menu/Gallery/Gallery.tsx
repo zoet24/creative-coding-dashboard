@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { loadProjects } from "../../../lib/loadProjects";
 import { ProjectConfig, projectCategories } from "../../../lib/types";
+import ProjectCard from "../../ProjectCard/ProjectCard";
 import { Input } from "../../ui/input";
-import ProjectCard from "../ProjectCard/ProjectCard";
 
 const Gallery = () => {
   const [projects, setProjects] = useState<ProjectConfig[]>([]);
