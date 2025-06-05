@@ -15,6 +15,10 @@ const Gallery = () => {
   }, []);
 
   const handleProjectClick = async (project: ProjectConfig) => {
+    if (project.slug === activeConfig?.slug) {
+      return;
+    }
+
     const loadedProject = await loadProject(project.slug);
     if (loadedProject) {
       setProject(loadedProject);
