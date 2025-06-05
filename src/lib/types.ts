@@ -15,3 +15,5 @@ export type ProjectConfig = {
   categories: ProjectCategory[];
   slug: string;
 };
+
+export type ProjectComponent = React.FC;
