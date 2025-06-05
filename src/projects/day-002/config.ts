@@ -1,3 +1,5 @@
+import { ProjectConfig } from "../../lib/types";
+
 const config: ProjectConfig = {
   title: "Day 02 - Blarg!",
   description: "Blarg! Blarg!",

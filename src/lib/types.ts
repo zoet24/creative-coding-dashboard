@@ -1,12 +1,15 @@
-type ProjectCategory =
-  | "Visual"
-  | "Generative"
-  | "Physics"
-  | "Sound"
-  | "Interaction"
-  | "Other";
+export const projectCategories = [
+  "Visual",
+  "Physics",
+  "Audio",
+  "Interaction",
+  "Simulation",
+  "Generative",
+] as const;
 
-type ProjectConfig = {
+export type ProjectCategory = (typeof projectCategories)[number];
+
+export type ProjectConfig = {
   title: string;
   description: string;
   categories: ProjectCategory[];
