@@ -1,15 +1,11 @@
 import { Camera, Maximize2, Pause, Play } from "lucide-react";
+import { useFullscreen } from "../../context/FullscreenContext";
 import { Button } from "../ui/button";
 import { useToolbar } from "./useToolbar";
 
 const Toolbar = () => {
-  const {
-    isPlaying,
-    isFullscreen,
-    togglePlay,
-    takeScreenshot,
-    toggleFullscreen,
-  } = useToolbar();
+  const { isPlaying, togglePlay, takeScreenshot } = useToolbar();
+  const { toggleFullscreen } = useFullscreen();
 
   return (
     <div className="flex justify-around bg-muted p-sm gap-sm rounded-sm shadow">

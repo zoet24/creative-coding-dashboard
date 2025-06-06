@@ -1,18 +1,14 @@
 import html2canvas from "html2canvas";
-import { useState } from "react";
 import { useActiveProject } from "../../context/ActiveProjectContext";
 
 export const useToolbar = () => {
   const { config, setIsPlaying } = useActiveProject();
-  const [isFullscreen, setIsFullscreen] = useState(false);
 
   if (!config) {
     return {
       isPlaying: false,
-      isFullscreen,
       togglePlay: () => {},
       takeScreenshot: async () => {},
-      toggleFullscreen: () => {},
     };
   }
 
@@ -44,27 +40,9 @@ export const useToolbar = () => {
     }
   };
 
-  const toggleFullscreen = () => {
-    const elem = document.documentElement;
-
-    if (!document.fullscreenElement) {
-      elem
-        .requestFullscreen()
-        .then(() => setIsFullscreen(true))
-        .catch(console.error);
-    } else {
-      document
-        .exitFullscreen()
-        .then(() => setIsFullscreen(false))
-        .catch(console.error);
-    }
-  };
-
   return {
     isPlaying,
-    isFullscreen,
     togglePlay,
     takeScreenshot,
-    toggleFullscreen,
   };
 };
