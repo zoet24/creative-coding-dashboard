@@ -6,8 +6,8 @@ import { useProjectCarousel } from "./useProjectCarousel";
 const ProjectCarousel = () => {
   const { currentProject, isLoading, goNext, goPrev } = useProjectCarousel();
 
-  if (isLoading || !currentProject) {
-    return <div>Loading projects...</div>; // TOZO: Add loading animation
+  if (!isLoading || !currentProject) {
+    return;
   }
 
   return (

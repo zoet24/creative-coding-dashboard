@@ -1,5 +1,6 @@
 import { RotateCcw, Shuffle } from "lucide-react";
 import { useActiveProject } from "../../../context/ActiveProjectContext";
+import EmptyState from "../../EmptyState/EmptyState";
 import { Button } from "../../ui/button";
 import { Label } from "../../ui/label";
 import { Slider } from "../../ui/slider";
@@ -82,10 +83,12 @@ const Controls = () => {
           </Button>
         </div>
       ) : (
-        <div className="text-sm text-gray-500">
-          {activeProject ? activeProject.title : "This project"} doesn't have
-          any controls.
-        </div> // TOZO: Add empty state component
+        <EmptyState
+          text={`${
+            activeProject ? activeProject.title : "This project"
+          } doesn't have
+        any controls.`}
+        />
       )}
     </div>
   );

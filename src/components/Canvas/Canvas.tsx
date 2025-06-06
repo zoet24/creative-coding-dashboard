@@ -1,4 +1,5 @@
 import { useActiveProject } from "../../context/ActiveProjectContext";
+import Loading from "../Loading/Loading";
 
 const Canvas = () => {
   const { component: ActiveProject } = useActiveProject();
@@ -8,11 +9,7 @@ const Canvas = () => {
       className="w-full h-full bg-white flex items-center justify-center"
       id="project-display"
     >
-      {ActiveProject ? (
-        <ActiveProject />
-      ) : (
-        <p className="text-center pt-20">Loading canvas...</p> // TOZO: Add loading state
-      )}
+      {ActiveProject ? <ActiveProject /> : <Loading />}
     </div>
   );
 };

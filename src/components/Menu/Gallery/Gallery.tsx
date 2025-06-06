@@ -1,4 +1,5 @@
 import { ProjectCategory, projectCategories } from "../../../lib/types";
+import EmptyState from "../../EmptyState/EmptyState";
 import ProjectCard from "../../ProjectCard/ProjectCard";
 import { Input } from "../../ui/input";
 import { useGallery } from "./useGallery";
@@ -48,7 +49,7 @@ const Gallery = () => {
         ))}
 
         {filteredProjects.length === 0 && (
-          <div className="text-sm text-gray-500">No projects found.</div> // TOZO: Add empty state component
+          <EmptyState text="No projects found." />
         )}
       </div>
     </div>
