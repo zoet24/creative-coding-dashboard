@@ -1,3 +1,27 @@
+// Controls
+export type SliderControl = {
+  type: "slider";
+  label: string;
+  defaultValue: number;
+  min?: number;
+  max?: number;
+  step?: number;
+};
+
+export type ToggleControl = {
+  type: "toggle";
+  label: string;
+  defaultValue: boolean;
+};
+
+export type Control = SliderControl | ToggleControl;
+
+export type ControlGroup = {
+  group: string;
+  controls: Control[];
+};
+
+// Projects
 export const projectCategories = [
   "Visual",
   "Physics",
@@ -14,6 +38,7 @@ export type ProjectConfig = {
   description: string;
   categories: ProjectCategory[];
   slug: string;
+  controls?: ControlGroup[];
 };
 
 export type ProjectComponent = React.FC;

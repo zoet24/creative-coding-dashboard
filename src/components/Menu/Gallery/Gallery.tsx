@@ -48,7 +48,7 @@ const Gallery = () => {
         ))}
 
         {filteredProjects.length === 0 && (
-          <div className="text-sm text-gray-500">No projects found.</div>
+          <div className="text-sm text-gray-500">No projects found.</div> // TOZO: Add empty state component
         )}
       </div>
     </div>
