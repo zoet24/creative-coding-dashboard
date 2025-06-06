@@ -1,12 +1,12 @@
 import { ControlGroup } from "@/lib/types";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 
 type ControlValue = number | boolean;
 
 export const useControls = (controlGroups: ControlGroup[]) => {
-  const getInitialValues = () => {
+  const getInitialValues = (groups: ControlGroup[]) => {
     const values: Record<string, ControlValue> = {};
-    controlGroups.forEach((group, groupIndex) => {
+    groups.forEach((group, groupIndex) => {
       group.controls.forEach((control, controlIndex) => {
         const key = `${groupIndex}-${controlIndex}`;
         values[key] = control.defaultValue;
@@ -15,13 +15,12 @@ export const useControls = (controlGroups: ControlGroup[]) => {
     return values;
   };
 
-  const [values, setValues] = useState<Record<string, ControlValue>>(
-    getInitialValues()
+  const initialValues = useMemo(
+    () => getInitialValues(controlGroups),
+    [controlGroups]
   );
-
-  useEffect(() => {
-    setValues(getInitialValues());
-  }, [controlGroups]);
+  const [values, setValues] =
+    useState<Record<string, ControlValue>>(initialValues);
 
   const handleSliderChange = (key: string, val: number[]) => {
     setValues((prev) => ({ ...prev, [key]: val[0] }));
@@ -32,7 +31,7 @@ export const useControls = (controlGroups: ControlGroup[]) => {
   };
 
   const handleReset = () => {
-    setValues(getInitialValues());
+    setValues(initialValues);
   };
 
   const handleRandomise = () => {
