@@ -12,6 +12,7 @@ interface ActiveProjectContextType {
   component: React.FC | null;
   config: ProjectConfig | null;
   setProject: (project: { component: React.FC; config: ProjectConfig }) => void;
+  setIsPlaying: (playing: boolean) => void;
 }
 
 const ActiveProjectContext = createContext<
@@ -46,6 +47,10 @@ export const ActiveProjectProvider = ({
     setConfig(config);
   };
 
+  const setIsPlaying = (playing: boolean) => {
+    setConfig((prev) => (prev ? { ...prev, isPlaying: playing } : prev));
+  };
+
   useEffect(() => {
     const load = async () => {
       const defaultProject = await loadProject("day-001");
@@ -56,8 +61,14 @@ export const ActiveProjectProvider = ({
     load();
   }, []);
 
+  useEffect(() => {
+    console.log(config);
+  }, [config]);
+
   return (
-    <ActiveProjectContext.Provider value={{ component, config, setProject }}>
+    <ActiveProjectContext.Provider
+      value={{ component, config, setProject, setIsPlaying }}
+    >
       {children}
     </ActiveProjectContext.Provider>
   );

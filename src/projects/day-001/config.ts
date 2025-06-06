@@ -48,6 +48,7 @@ const config: ProjectConfig = {
       ],
     },
   ],
+  isPlaying: true,
 };
 
 export default config;

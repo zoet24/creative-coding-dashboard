@@ -38,6 +38,7 @@ export type ProjectConfig = {
   description: string;
   categories: ProjectCategory[];
   slug: string;
+  isPlaying: boolean;
   controls?: ControlGroup[];
 };
 

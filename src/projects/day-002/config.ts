@@ -5,6 +5,7 @@ const config: ProjectConfig = {
   description: "Blarg! Blarg!",
   categories: ["Visual"],
   slug: "day-002",
+  isPlaying: true,
 };
 
 export default config;
