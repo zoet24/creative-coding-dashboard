@@ -3,63 +3,82 @@ import { Button } from "../../ui/button";
 import { Label } from "../../ui/label";
 import { Slider } from "../../ui/slider";
 import { Switch } from "../../ui/switch";
+import { useControls } from "./useControls";
 
 const Controls = () => {
   const { config: activeProject } = useActiveProject();
   const controlGroups = activeProject?.controls ?? [];
-  console.log(activeProject);
+
+  const {
+    values,
+    handleSliderChange,
+    handleToggleChange,
+    handleReset,
+    handleRandomise,
+  } = useControls(controlGroups);
 
   return (
     <div className="space-y-lg mt-lg">
-      {controlGroups.map((group, i) => (
-        <>
-          <div key={i} className="border-2 rounded-sm p-md">
-            <h3 className="font-semibold text-sm uppercase tracking-wider">
-              {group.group}
-            </h3>
-            <div className="space-y-md mt-sm">
-              {group.controls.map((control, j) => {
-                if (control.type === "slider") {
-                  return (
-                    <div key={j}>
-                      <Label>{control.label}</Label>
-                      <Slider
-                        defaultValue={[control.defaultValue]}
-                        min={control.min ?? 0}
-                        max={control.max ?? 100}
-                        step={control.step ?? 1}
-                      />
-                    </div>
-                  );
-                }
+      {controlGroups.map((group, groupIndex) => (
+        <div key={groupIndex} className="border-2 rounded-sm p-md">
+          <h3 className="font-semibold text-sm uppercase tracking-wider">
+            {group.group}
+          </h3>
+          <div className="space-y-md mt-sm">
+            {group.controls.map((control, controlIndex) => {
+              const key = `${groupIndex}-${controlIndex}`;
+              const value = values[key];
 
-                if (control.type === "toggle") {
-                  return (
-                    <div
-                      key={j}
-                      className="flex items-center justify-between gap-4"
-                    >
-                      <Label>{control.label}</Label>
-                      <Switch defaultChecked={control.defaultValue} />
-                    </div>
-                  );
-                }
+              if (control.type === "slider" && typeof value === "number") {
+                return (
+                  <div key={key}>
+                    <Label>{control.label}</Label>
+                    <Slider
+                      value={[value]}
+                      onValueChange={(v) => handleSliderChange(key, v)}
+                      min={control.min ?? 0}
+                      max={control.max ?? 100}
+                      step={control.step ?? 1}
+                    />
+                  </div>
+                );
+              }
 
-                return null;
-              })}
-            </div>
+              if (control.type === "toggle" && typeof value === "boolean") {
+                return (
+                  <div
+                    key={key}
+                    className="flex items-center justify-between gap-4"
+                  >
+                    <Label>{control.label}</Label>
+                    <Switch
+                      checked={value}
+                      onCheckedChange={(v) => handleToggleChange(key, v)}
+                    />
+                  </div>
+                );
+              }
+
+              return null;
+            })}
           </div>
-          <div className="flex gap-md">
-            <Button className="w-full" variant="default">
-              Reset
-            </Button>
-            <Button className="w-full" variant="outline">
-              Randomise
-            </Button>
-          </div>
-        </>
+        </div>
       ))}
-      {controlGroups.length === 0 && (
+
+      {controlGroups.length > 0 ? (
+        <div className="flex gap-md">
+          <Button className="w-full" variant="default" onClick={handleReset}>
+            Reset
+          </Button>
+          <Button
+            className="w-full"
+            variant="outline"
+            onClick={handleRandomise}
+          >
+            Randomise
+          </Button>
+        </div>
+      ) : (
         <div className="text-sm text-gray-500">
           {activeProject ? activeProject.title : "This project"} doesn't have
           any controls.
