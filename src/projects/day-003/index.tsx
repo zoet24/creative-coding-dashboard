@@ -1,8 +1,10 @@
 const Day003 = () => {
   return (
-    <canvas width={500} height={500} className="w-full h-full bg-green-500">
-      Your browser does not support the canvas element.
-    </canvas>
+    <canvas
+      width={500}
+      height={500}
+      className="w-full h-full bg-green-500"
+    ></canvas>
   );
 };
 

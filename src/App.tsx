@@ -5,7 +5,7 @@ import Toolbar from "./components/Toolbar/Toolbar";
 import { useIsMobile } from "./hooks/useIsMobile";
 
 function App() {
-  const [menuOpen, setMenuOpen] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
   const isMobile = useIsMobile();
 
   return (

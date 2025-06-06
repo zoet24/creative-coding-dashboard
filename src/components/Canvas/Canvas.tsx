@@ -4,7 +4,10 @@ const Canvas = () => {
   const { component: ActiveProject } = useActiveProject();
 
   return (
-    <div className="w-full h-full bg-white flex items-center justify-center">
+    <div
+      className="w-full h-full bg-white flex items-center justify-center"
+      id="project-display"
+    >
       {ActiveProject ? (
         <ActiveProject />
       ) : (

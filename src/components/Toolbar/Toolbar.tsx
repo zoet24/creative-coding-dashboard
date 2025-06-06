@@ -1,21 +1,19 @@
 import { Camera, Maximize2, Pause, Play } from "lucide-react";
-import { useActiveProject } from "../../context/ActiveProjectContext";
 import { Button } from "../ui/button";
+import { useToolbar } from "./useToolbar";
 
 const Toolbar = () => {
-  const { config, setIsPlaying } = useActiveProject();
-
-  if (!config) return null; // TOZO: Add loading state
-
-  const { isPlaying } = config;
+  const {
+    isPlaying,
+    isFullscreen,
+    togglePlay,
+    takeScreenshot,
+    toggleFullscreen,
+  } = useToolbar();
 
   return (
     <div className="flex justify-around bg-muted p-sm gap-sm rounded-sm shadow">
-      <Button
-        className="w-full"
-        size="sm"
-        onClick={() => setIsPlaying(!isPlaying)}
-      >
+      <Button className="w-full" size="sm" onClick={togglePlay}>
         {isPlaying ? (
           <>
             <Pause className="mr-xxs" />
@@ -28,11 +26,11 @@ const Toolbar = () => {
           </>
         )}
       </Button>
-      <Button className="w-full" size="sm">
+      <Button className="w-full" size="sm" onClick={takeScreenshot}>
         <Camera className="mr-xxs" />
         Screenshot
       </Button>
-      <Button className="w-full" size="sm">
+      <Button className="w-full" size="sm" onClick={toggleFullscreen}>
         <Maximize2 className="mr-xxs" />
         Fullscreen
       </Button>
