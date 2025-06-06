@@ -5,10 +5,12 @@ export default {
   theme: {
     extend: {
       spacing: {
-        xs: "1px",
-        sm: "2px",
-        md: "4px",
-        lg: "8px",
+        xxs: "1px",
+        xs: "2px",
+        sm: "4px",
+        md: "8px",
+        lg: "16px",
+        xl: "32px",
       },
       borderRadius: {
         lg: "var(--radius)",

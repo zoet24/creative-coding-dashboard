@@ -12,13 +12,13 @@ const ProjectCard = ({ project, isActive, onClick }: ProjectCardProps) => {
   return (
     <Card
       onClick={onClick}
-      className={`p-4 border-2 cursor-pointer transition-colors duration-200 ${
+      className={`p-lg border-2 cursor-pointer transition-colors duration-200 text-center shadow-md ${
         isActive ? "border-green-500" : "border-black"
       }`}
     >
       <h4 className="font-bold">{project.title}</h4>
       <p className="text-sm">{project.description}</p>
-      <div className="flex gap-1 mt-2 flex-wrap">
+      <div className="flex justify-center gap-sm mt-sm flex-wrap">
         {project.categories.map((cat, i) => (
           <Badge key={i}>{cat}</Badge>
         ))}

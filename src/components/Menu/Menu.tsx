@@ -24,7 +24,7 @@ const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
       </SheetTrigger>
       <SheetContent
         side={isMobile ? "bottom" : "left"}
-        className="p-4 w-full max-w-sm flex flex-col h-full"
+        className="p-lg w-full max-w-sm flex flex-col h-full"
       >
         {activeProject && <ProjectCarousel />}
         <Tabs defaultValue="controls" className="w-full">
