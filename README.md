@@ -1,12 +1,29 @@
-# React + Vite
+# Creative Coding Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a personal dashboard for managing and showcasing creative coding projects. It allows you to upload, browse, and interact with various generative art and visual coding projects in one unified interface.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Canvas:** Displays active project.
+- **Control Panel:** Change parameters of active project.
+- **Gallery:** Search the range of existing projects.
+- **Screenshot & Fullscreen:** Capture screenshots and toggle fullscreen mode.
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- `/src/components`: Reusable UI components based on Shadcn component library.
+- `/src/context`: React context for managing active project state.
+- `/src/hooks`: Custom hooks managing controls and state logic.
+- `/src/lib`: Helper functions for loading projects and data.
+- `/src/projects`: Houses all of the creative coding designs.
+
+## Getting Started
+
+1. Clone the repo
+2. Run `npm install` or `yarn` to install dependencies
+3. Run `npm run dev` to start the development server
+4. Open your browser to the local server address to explore the dashboard
+
+## Testing
+
+- Run `npm run test` to execute unit tests with Jest and React Testing Library.
