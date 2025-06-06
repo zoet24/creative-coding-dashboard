@@ -1,3 +1,4 @@
+import { RotateCcw, Shuffle } from "lucide-react";
 import { useActiveProject } from "../../../context/ActiveProjectContext";
 import { Button } from "../../ui/button";
 import { Label } from "../../ui/label";
@@ -68,6 +69,7 @@ const Controls = () => {
       {controlGroups.length > 0 ? (
         <div className="flex gap-md">
           <Button className="w-full" variant="default" onClick={handleReset}>
+            <RotateCcw className="mr-xxs" />
             Reset
           </Button>
           <Button
@@ -75,6 +77,7 @@ const Controls = () => {
             variant="outline"
             onClick={handleRandomise}
           >
+            <Shuffle className="mr-xxs" />
             Randomise
           </Button>
         </div>

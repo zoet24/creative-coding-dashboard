@@ -11,7 +11,7 @@ const ProjectCarousel = () => {
   }
 
   return (
-    <div className="relative flex items-center">
+    <div className="relative flex items-center mx-lg">
       <div className="flex-1">
         <ProjectCard project={currentProject} isActive={true} />
       </div>

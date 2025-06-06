@@ -20,11 +20,26 @@ const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button variant="outline">Menu</Button>
+        <Button
+          variant="ghost"
+          className={`bg-gray-200 hover:bg-gray-300 p-0 rounded-lg ${
+            isMobile
+              ? "w-screen h-lg rounded-b-none absolute bottom-0"
+              : "h-screen w-lg rounded-l-none absolute bottom-0"
+          } `}
+        >
+          <div
+            className={`bg-gray-400 rounded ${
+              isMobile ? "w-1/2 h-sm" : "h-1/2 w-sm"
+            } `}
+          ></div>
+        </Button>
       </SheetTrigger>
       <SheetContent
         side={isMobile ? "bottom" : "left"}
-        className="p-lg w-full max-w-sm flex flex-col h-full"
+        className={`p-lg w-full flex flex-col  ${
+          isMobile ? "h-[95vh]" : "h-full max-w-sm"
+        }`}
       >
         {activeProject && <ProjectCarousel />}
         <Tabs defaultValue="controls" className="w-full">
@@ -39,9 +54,11 @@ const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
             <Gallery />
           </TabsContent>
         </Tabs>
-        <div className="hidden md:block mt-auto">
-          <Toolbar />
-        </div>
+        {!isMobile && (
+          <div className="mt-auto">
+            <Toolbar />
+          </div>
+        )}
       </SheetContent>
     </Sheet>
   );
