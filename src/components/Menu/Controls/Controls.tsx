@@ -28,7 +28,7 @@ const Controls = () => {
           </h3>
           <div className="space-y-md mt-sm">
             {group.controls.map((control, controlIndex) => {
-              const key = `${groupIndex}-${controlIndex}`;
+              const key = control.id ?? `${groupIndex}-${controlIndex}`;
               const value = values[key];
 
               if (control.type === "slider" && typeof value === "number") {

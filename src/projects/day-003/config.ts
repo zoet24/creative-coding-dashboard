@@ -6,6 +6,21 @@ const config: ProjectConfig = {
   categories: [],
   slug: "day-003",
   isPlaying: true,
+  controls: [
+    {
+      group: "Input",
+      controls: [
+        {
+          id: "amplitude",
+          type: "slider",
+          label: "Wave amplitude",
+          defaultValue: 100,
+          min: 1,
+          max: 100,
+        },
+      ],
+    },
+  ],
 };
 
 export default config;

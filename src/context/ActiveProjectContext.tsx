@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { WORKING_PROJECT } from "../constants/app";
 
 interface ActiveProjectContextType {
   component: React.FC | null;
@@ -53,17 +54,13 @@ export const ActiveProjectProvider = ({
 
   useEffect(() => {
     const load = async () => {
-      const defaultProject = await loadProject("day-002");
+      const defaultProject = await loadProject(WORKING_PROJECT);
       if (defaultProject) {
         setProject(defaultProject);
       }
     };
     load();
   }, []);
-
-  useEffect(() => {
-    console.log(config);
-  }, [config]);
 
   return (
     <ActiveProjectContext.Provider

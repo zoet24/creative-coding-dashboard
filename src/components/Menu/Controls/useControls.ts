@@ -4,11 +4,17 @@ import { useMemo, useState } from "react";
 type ControlValue = number | boolean;
 
 export const useControls = (controlGroups: ControlGroup[]) => {
+  const getControlKey = (
+    control: any,
+    groupIndex: number,
+    controlIndex: number
+  ) => control.id ?? `${groupIndex}-${controlIndex}`;
+
   const getInitialValues = (groups: ControlGroup[]) => {
     const values: Record<string, ControlValue> = {};
     groups.forEach((group, groupIndex) => {
       group.controls.forEach((control, controlIndex) => {
-        const key = `${groupIndex}-${controlIndex}`;
+        const key = getControlKey(control, groupIndex, controlIndex);
         values[key] = control.defaultValue;
       });
     });
@@ -38,7 +44,7 @@ export const useControls = (controlGroups: ControlGroup[]) => {
     const newValues: Record<string, ControlValue> = {};
     controlGroups.forEach((group, groupIndex) => {
       group.controls.forEach((control, controlIndex) => {
-        const key = `${groupIndex}-${controlIndex}`;
+        const key = getControlKey(control, groupIndex, controlIndex);
         if (control.type === "slider") {
           const min = control.min ?? 0;
           const max = control.max ?? 100;

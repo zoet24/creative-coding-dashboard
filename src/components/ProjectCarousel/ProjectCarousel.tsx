@@ -6,7 +6,7 @@ import { useProjectCarousel } from "./useProjectCarousel";
 const ProjectCarousel = () => {
   const { currentProject, isLoading, goNext, goPrev } = useProjectCarousel();
 
-  if (!isLoading || !currentProject) {
+  if (isLoading || !currentProject) {
     return;
   }
 

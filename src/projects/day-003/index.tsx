@@ -1,9 +1,11 @@
 import { useEffect, useRef } from "react";
 import { createNoise2D } from "simplex-noise";
+import { useProjectControlValues } from "../../hooks/useProjectControls";
 
-const Day002 = () => {
+const Day003 = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const noise2D = useRef(createNoise2D());
+  const values = useProjectControlValues();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -17,7 +19,7 @@ const Day002 = () => {
     const waveHeight = height / 2;
     let time = 0;
 
-    const amplitude = 50;
+    const amplitude = values.amplitude as number;
     const frequency = 0.005;
     const noiseScale = 0.01;
 
@@ -49,7 +51,7 @@ const Day002 = () => {
     };
 
     animate();
-  }, []);
+  }, [values]);
 
   return (
     <canvas
@@ -59,4 +61,4 @@ const Day002 = () => {
   );
 };
 
-export default Day002;
+export default Day003;

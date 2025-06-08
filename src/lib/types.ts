@@ -1,5 +1,6 @@
 // Controls
 export type SliderControl = {
+  id: string;
   type: "slider";
   label: string;
   defaultValue: number;
@@ -9,6 +10,7 @@ export type SliderControl = {
 };
 
 export type ToggleControl = {
+  id: string;
   type: "toggle";
   label: string;
   defaultValue: boolean;
