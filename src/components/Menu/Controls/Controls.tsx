@@ -1,14 +1,9 @@
 import { useActiveProject } from "../../../context/ActiveProjectContext";
-import { Label } from "../../ui/label";
-import { Slider } from "../../ui/slider";
-import { Switch } from "../../ui/switch";
-import { useControls } from "./useControls";
+import SliderControl from "./SliderControl/SliderControl";
 
 const Controls = () => {
   const { config: activeProject } = useActiveProject();
   const controlGroups = activeProject?.controls ?? [];
-
-  const { values } = useControls();
 
   return (
     <div className="space-y-lg mt-lg">
@@ -20,38 +15,17 @@ const Controls = () => {
           <div className="space-y-md mt-sm">
             {group.controls.map((control, controlIndex) => {
               const key = control.id ?? `${groupIndex}-${controlIndex}`;
-              const value = values[key];
 
-              if (control.type === "slider" && typeof value === "number") {
+              if (control.type === "slider") {
                 return (
-                  <div key={key}>
-                    <div className="flex justify-between items-center mb-sm">
-                      <Label>{control.label}</Label>
-                      <p>{[value]}</p>
-                    </div>
-                    <Slider
-                      value={[value]}
-                      // onValueChange={(v) => handleSliderChange(key, v)}
-                      min={control.min ?? 0}
-                      max={control.max ?? 100}
-                      step={control.step ?? 1}
-                    />
-                  </div>
-                );
-              }
-
-              if (control.type === "toggle" && typeof value === "boolean") {
-                return (
-                  <div
+                  <SliderControl
                     key={key}
-                    className="flex items-center justify-between gap-4"
-                  >
-                    <Label>{control.label}</Label>
-                    <Switch
-                      checked={value}
-                      // onCheckedChange={(v) => handleToggleChange(key, v)}
-                    />
-                  </div>
+                    keyId={key}
+                    label={control.label}
+                    min={control.min ?? 0}
+                    max={control.max ?? 100}
+                    step={control.step ?? 1}
+                  />
                 );
               }
 
@@ -60,30 +34,6 @@ const Controls = () => {
           </div>
         </div>
       ))}
-
-      {/* {controlGroups.length > 0 ? (
-        <div className="flex gap-md">
-          <Button className="w-full" variant="default" onClick={handleReset}>
-            <RotateCcw className="mr-xxs" />
-            Reset
-          </Button>
-          <Button
-            className="w-full"
-            variant="outline"
-            onClick={handleRandomise}
-          >
-            <Shuffle className="mr-xxs" />
-            Randomise
-          </Button>
-        </div>
-      ) : (
-        <EmptyState
-          text={`${
-            activeProject ? activeProject.title : "This project"
-          } doesn't have
-        any controls.`}
-        />
-      )} */}
     </div>
   );
 };

@@ -7,10 +7,10 @@ import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <FullscreenProvider>
-      <ActiveProjectProvider>
+    <ActiveProjectProvider>
+      <FullscreenProvider>
         <App />
-      </ActiveProjectProvider>
-    </FullscreenProvider>
+      </FullscreenProvider>
+    </ActiveProjectProvider>
   </StrictMode>
 );

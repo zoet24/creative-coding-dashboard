@@ -16,6 +16,7 @@ interface ActiveProjectContextType {
   component: React.FC | null;
   config: ProjectConfig | null;
   controlValues: ControlValues;
+  updateControlValue: (key: string, value: ControlValue) => void;
   setProject: (project: { component: React.FC; config: ProjectConfig }) => void;
   setIsPlaying: (playing: boolean) => void;
 }
@@ -55,35 +56,56 @@ export const ActiveProjectProvider = ({
 
   const setProject = ({
     component,
-    config,
+    config: newConfig,
   }: {
     component: React.FC;
     config: ProjectConfig;
   }) => {
-    setComponent(() => component);
-    setConfig(config);
+    if (config?.title === newConfig.title) return;
 
-    const initialValues = initControlValues(config.controls ?? []);
+    setComponent(() => component);
+    setConfig(newConfig);
+    const initialValues = initControlValues(newConfig.controls ?? []);
     setControlValues(initialValues);
+
+    console.log("setProject");
   };
 
   const setIsPlaying = (playing: boolean) => {
     setConfig((prev) => (prev ? { ...prev, isPlaying: playing } : prev));
+
+    console.log("setIsPlaying");
+  };
+
+  const updateControlValue = (key: string, value: ControlValue) => {
+    setControlValues((prev) => {
+      const updated = { ...prev, [key]: value };
+      console.log("updateControlValue", updated);
+      return updated;
+    });
   };
 
   useEffect(() => {
     const load = async () => {
+      if (config) return;
       const defaultProject = await loadProject(WORKING_PROJECT);
       if (defaultProject) {
         setProject(defaultProject);
       }
     };
     load();
-  }, []);
+  }, [config]);
 
   return (
     <ActiveProjectContext.Provider
-      value={{ component, config, controlValues, setProject, setIsPlaying }}
+      value={{
+        component,
+        config,
+        controlValues,
+        updateControlValue,
+        setProject,
+        setIsPlaying,
+      }}
     >
       {children}
     </ActiveProjectContext.Provider>
