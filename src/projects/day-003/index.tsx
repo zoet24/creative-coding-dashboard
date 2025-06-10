@@ -25,14 +25,15 @@ const Day003 = () => {
     const waveHeight = height / 2;
     let time = 0;
 
-    const frequency = 0.005;
-    const noiseScale = 0.01;
-
     const animate = () => {
       if (!ctx) return;
 
       const amplitude =
-        (controlRef.current["amplitude"] as number | undefined) ?? 100;
+        (controlRef.current["amplitude"] as number | undefined) ?? 50;
+      const frequency =
+        (controlRef.current["frequency"] as number | undefined) ?? 0.005;
+      const noiseScale =
+        (controlRef.current["noiseScale"] as number | undefined) ?? 0.01;
 
       ctx.clearRect(0, 0, width, height);
 
