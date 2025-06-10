@@ -1,7 +1,4 @@
-import { RotateCcw, Shuffle } from "lucide-react";
 import { useActiveProject } from "../../../context/ActiveProjectContext";
-import EmptyState from "../../EmptyState/EmptyState";
-import { Button } from "../../ui/button";
 import { Label } from "../../ui/label";
 import { Slider } from "../../ui/slider";
 import { Switch } from "../../ui/switch";
@@ -11,13 +8,7 @@ const Controls = () => {
   const { config: activeProject } = useActiveProject();
   const controlGroups = activeProject?.controls ?? [];
 
-  const {
-    values,
-    handleSliderChange,
-    handleToggleChange,
-    handleReset,
-    handleRandomise,
-  } = useControls(controlGroups);
+  const { values } = useControls();
 
   return (
     <div className="space-y-lg mt-lg">
@@ -34,10 +25,13 @@ const Controls = () => {
               if (control.type === "slider" && typeof value === "number") {
                 return (
                   <div key={key}>
-                    <Label>{control.label}</Label>
+                    <div className="flex justify-between items-center mb-sm">
+                      <Label>{control.label}</Label>
+                      <p>{[value]}</p>
+                    </div>
                     <Slider
                       value={[value]}
-                      onValueChange={(v) => handleSliderChange(key, v)}
+                      // onValueChange={(v) => handleSliderChange(key, v)}
                       min={control.min ?? 0}
                       max={control.max ?? 100}
                       step={control.step ?? 1}
@@ -55,7 +49,7 @@ const Controls = () => {
                     <Label>{control.label}</Label>
                     <Switch
                       checked={value}
-                      onCheckedChange={(v) => handleToggleChange(key, v)}
+                      // onCheckedChange={(v) => handleToggleChange(key, v)}
                     />
                   </div>
                 );
@@ -67,7 +61,7 @@ const Controls = () => {
         </div>
       ))}
 
-      {controlGroups.length > 0 ? (
+      {/* {controlGroups.length > 0 ? (
         <div className="flex gap-md">
           <Button className="w-full" variant="default" onClick={handleReset}>
             <RotateCcw className="mr-xxs" />
@@ -89,7 +83,7 @@ const Controls = () => {
           } doesn't have
         any controls.`}
         />
-      )}
+      )} */}
     </div>
   );
 };

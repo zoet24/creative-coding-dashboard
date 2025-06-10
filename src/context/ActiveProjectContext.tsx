@@ -1,5 +1,5 @@
 import { loadProject } from "@/lib/loadProject";
-import { ProjectConfig } from "@/lib/types";
+import { ControlGroup, ProjectConfig } from "@/lib/types";
 import {
   ReactNode,
   createContext,
@@ -9,9 +9,13 @@ import {
 } from "react";
 import { WORKING_PROJECT } from "../constants/app";
 
+type ControlValue = number | boolean;
+type ControlValues = Record<string, ControlValue>;
+
 interface ActiveProjectContextType {
   component: React.FC | null;
   config: ProjectConfig | null;
+  controlValues: ControlValues;
   setProject: (project: { component: React.FC; config: ProjectConfig }) => void;
   setIsPlaying: (playing: boolean) => void;
 }
@@ -36,6 +40,18 @@ export const ActiveProjectProvider = ({
 }) => {
   const [component, setComponent] = useState<React.FC | null>(null);
   const [config, setConfig] = useState<ProjectConfig | null>(null);
+  const [controlValues, setControlValues] = useState<ControlValues>({});
+
+  const initControlValues = (controlGroups: ControlGroup[]): ControlValues => {
+    const values: ControlValues = {};
+    controlGroups.forEach((group, groupIndex) => {
+      group.controls.forEach((control, controlIndex) => {
+        const key = control.id ?? `${groupIndex}-${controlIndex}`;
+        values[key] = control.defaultValue;
+      });
+    });
+    return values;
+  };
 
   const setProject = ({
     component,
@@ -46,6 +62,9 @@ export const ActiveProjectProvider = ({
   }) => {
     setComponent(() => component);
     setConfig(config);
+
+    const initialValues = initControlValues(config.controls ?? []);
+    setControlValues(initialValues);
   };
 
   const setIsPlaying = (playing: boolean) => {
@@ -64,7 +83,7 @@ export const ActiveProjectProvider = ({
 
   return (
     <ActiveProjectContext.Provider
-      value={{ component, config, setProject, setIsPlaying }}
+      value={{ component, config, controlValues, setProject, setIsPlaying }}
     >
       {children}
     </ActiveProjectContext.Provider>
