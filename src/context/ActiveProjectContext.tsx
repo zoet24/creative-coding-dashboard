@@ -67,20 +67,15 @@ export const ActiveProjectProvider = ({
     setConfig(newConfig);
     const initialValues = initControlValues(newConfig.controls ?? []);
     setControlValues(initialValues);
-
-    console.log("setProject");
   };
 
   const setIsPlaying = (playing: boolean) => {
     setConfig((prev) => (prev ? { ...prev, isPlaying: playing } : prev));
-
-    console.log("setIsPlaying");
   };
 
   const updateControlValue = (key: string, value: ControlValue) => {
     setControlValues((prev) => {
       const updated = { ...prev, [key]: value };
-      console.log("updateControlValue", updated);
       return updated;
     });
   };

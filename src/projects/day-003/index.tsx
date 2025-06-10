@@ -5,9 +5,13 @@ import { useActiveProject } from "../../context/ActiveProjectContext";
 const Day003 = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const noise2D = useRef(createNoise2D());
-  const { controlValues } = useActiveProject();
 
-  const configAmplitude = (controlValues["amplitude"] as number) ?? 100;
+  const { controlValues } = useActiveProject();
+  const controlRef = useRef(controlValues);
+
+  useEffect(() => {
+    controlRef.current = controlValues;
+  }, [controlValues]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -21,12 +25,14 @@ const Day003 = () => {
     const waveHeight = height / 2;
     let time = 0;
 
-    const amplitude = configAmplitude;
     const frequency = 0.005;
     const noiseScale = 0.01;
 
     const animate = () => {
       if (!ctx) return;
+
+      const amplitude =
+        (controlRef.current["amplitude"] as number | undefined) ?? 100;
 
       ctx.clearRect(0, 0, width, height);
 
@@ -45,7 +51,7 @@ const Day003 = () => {
       ctx.lineTo(width, height);
       ctx.lineTo(0, height);
       ctx.closePath();
-      ctx.fillStyle = "#87CEEB"; // Blue water
+      ctx.fillStyle = "#87CEEB";
       ctx.fill();
 
       time += 1;
