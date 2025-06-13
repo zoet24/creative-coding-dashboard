@@ -15,8 +15,6 @@ const Day003 = () => {
 
   useEffect(() => {
     configRef.current = config;
-
-    console.log(configRef);
   }, [config]);
 
   // TOZO: Add more waves, make more complicated!

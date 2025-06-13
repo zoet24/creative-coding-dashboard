@@ -5,7 +5,8 @@ const config: ProjectConfig = {
   description: "Colourful sludge animation",
   categories: [],
   slug: "day-003",
-  isPlaying: false,
+  isPlaying: true,
+  isAnimated: true,
   controls: [
     {
       group: "Input",

@@ -7,12 +7,14 @@ export const useToolbar = () => {
   if (!config) {
     return {
       isPlaying: false,
+      isAnimated: false,
       togglePlay: () => {},
       takeScreenshot: async () => {},
     };
   }
 
   const isPlaying = config?.isPlaying;
+  const isAnimated = config?.isAnimated;
 
   const togglePlay = () => {
     if (config) {
@@ -42,6 +44,7 @@ export const useToolbar = () => {
 
   return {
     isPlaying,
+    isAnimated,
     togglePlay,
     takeScreenshot,
   };
