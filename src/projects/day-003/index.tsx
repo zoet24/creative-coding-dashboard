@@ -7,9 +7,17 @@ const Day003 = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const noise2D = useRef(createNoise2D());
 
-  const { controlValues } = useActiveProject();
   const { get } = useControlValue();
+
+  const { config, controlValues } = useActiveProject();
   const controlRef = useRef(controlValues);
+  const configRef = useRef(config);
+
+  useEffect(() => {
+    configRef.current = config;
+
+    console.log(configRef);
+  }, [config]);
 
   // TOZO: Add more waves, make more complicated!
 
@@ -31,6 +39,8 @@ const Day003 = () => {
 
     const animate = () => {
       if (!ctx) return;
+
+      requestAnimationFrame(animate);
 
       const amplitude = get("amplitude");
       const frequency = get("frequency");
@@ -56,8 +66,11 @@ const Day003 = () => {
       ctx.fillStyle = "#87CEEB";
       ctx.fill();
 
+      if (!configRef.current?.isPlaying) {
+        return;
+      }
+
       time += 1;
-      requestAnimationFrame(animate);
     };
 
     animate();

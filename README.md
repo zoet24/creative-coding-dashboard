@@ -27,3 +27,8 @@ This is a personal dashboard for managing and showcasing creative coding project
 ## Testing
 
 - Run `npm run test` to execute unit tests with Jest and React Testing Library.
+
+## TOZOS
+
+- Deploy project so you can play on your phone
+- Hook project inputs up to keyboard

@@ -70,7 +70,6 @@ export const ActiveProjectProvider = ({
     setControlValues(initialValues);
   };
 
-  // TOZO: Set this up to pause/play animation
   const setIsPlaying = (playing: boolean) => {
     setConfig((prev) => (prev ? { ...prev, isPlaying: playing } : prev));
   };
