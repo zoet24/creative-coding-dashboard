@@ -54,6 +54,7 @@ export const ActiveProjectProvider = ({
     return values;
   };
 
+  // TOZO: Gallery bug where active project flicks around a lot!
   const setProject = ({
     component,
     config: newConfig,
@@ -69,6 +70,7 @@ export const ActiveProjectProvider = ({
     setControlValues(initialValues);
   };
 
+  // TOZO: Set this up to pause/play animation
   const setIsPlaying = (playing: boolean) => {
     setConfig((prev) => (prev ? { ...prev, isPlaying: playing } : prev));
   };
