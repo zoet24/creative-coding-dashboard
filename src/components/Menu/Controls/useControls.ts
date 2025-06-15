@@ -7,5 +7,9 @@ export const useControls = () => {
     updateControlValue(key, val[0]);
   };
 
-  return { values, handleSliderChange };
+  const handleToggleChange = (key: string, val: boolean) => {
+    updateControlValue(key, val);
+  };
+
+  return { values, handleSliderChange, handleToggleChange };
 };

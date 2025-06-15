@@ -17,6 +17,8 @@ interface ActiveProjectContextType {
   config: ProjectConfig | null;
   controlValues: ControlValues;
   updateControlValue: (key: string, value: ControlValue) => void;
+  randomiseControls: () => void;
+  resetControls: () => void;
   setProject: (project: { component: React.FC; config: ProjectConfig }) => void;
   setIsPlaying: (playing: boolean) => void;
 }
@@ -81,6 +83,45 @@ export const ActiveProjectProvider = ({
     });
   };
 
+  const randomiseControls = () => {
+    if (!config) return;
+
+    const values: ControlValues = {};
+    config.controls?.forEach((group, groupIndex) => {
+      group.controls.forEach((control, controlIndex) => {
+        const key = control.id ?? `${groupIndex}-${controlIndex}`;
+
+        if (control.type === "slider") {
+          const min = control.min ?? 0;
+          const max = control.max ?? 100;
+          const step = control.step ?? 1;
+
+          const decimals = step.toString().includes(".")
+            ? step.toString().split(".")[1].length
+            : 0;
+
+          const rangeSteps = Math.floor((max - min) / step);
+          const randomStep = Math.floor(Math.random() * (rangeSteps + 1));
+          const value = +(min + randomStep * step).toFixed(decimals);
+
+          values[key] = value;
+        }
+
+        if (control.type === "toggle") {
+          values[key] = Math.random() < 0.5;
+        }
+      });
+    });
+
+    setControlValues(values);
+  };
+
+  const resetControls = () => {
+    if (!config) return;
+    const initialValues = initControlValues(config.controls ?? []);
+    setControlValues(initialValues);
+  };
+
   useEffect(() => {
     const load = async () => {
       if (config) return;
@@ -99,6 +140,8 @@ export const ActiveProjectProvider = ({
         config,
         controlValues,
         updateControlValue,
+        randomiseControls,
+        resetControls,
         setProject,
         setIsPlaying,
       }}
