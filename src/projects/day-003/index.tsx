@@ -17,8 +17,6 @@ const Day003 = () => {
     configRef.current = config;
   }, [config]);
 
-  // TOZO: Add more waves, make more complicated!
-
   useEffect(() => {
     controlRef.current = controlValues;
   }, [controlValues]);
@@ -40,9 +38,12 @@ const Day003 = () => {
 
       requestAnimationFrame(animate);
 
-      const amplitude = get("amplitude");
-      const frequency = get("frequency");
-      const noiseScale = get("noiseScale");
+      const values = controlRef.current;
+      const amplitude = values["amplitude"] as number;
+      const frequency = values["frequency"] as number;
+      const noiseScale = values["noiseScale"] as number;
+      const colour =
+        typeof values["colour"] === "string" ? values["colour"] : "#000000";
 
       ctx.clearRect(0, 0, width, height);
 
@@ -61,7 +62,7 @@ const Day003 = () => {
       ctx.lineTo(width, height);
       ctx.lineTo(0, height);
       ctx.closePath();
-      ctx.fillStyle = "#87CEEB";
+      ctx.fillStyle = typeof colour === "string" ? colour : "#000000";
       ctx.fill();
 
       if (!configRef.current?.isPlaying) {

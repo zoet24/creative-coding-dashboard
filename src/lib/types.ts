@@ -16,7 +16,14 @@ export type ToggleControl = {
   defaultValue: boolean;
 };
 
-export type Control = SliderControl | ToggleControl;
+export type ColourControl = {
+  id: string;
+  type: "colour";
+  label: string;
+  defaultValue: string;
+};
+
+export type Control = SliderControl | ToggleControl | ColourControl;
 
 export type ControlGroup = {
   group: string;

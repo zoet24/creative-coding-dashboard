@@ -8,8 +8,13 @@ import {
   useState,
 } from "react";
 import { WORKING_PROJECT } from "../constants/app";
+import {
+  isColourControl,
+  isSliderControl,
+  isToggleControl,
+} from "../lib/controlTypeGuards";
 
-type ControlValue = number | boolean;
+type ControlValue = number | boolean | string;
 type ControlValues = Record<string, ControlValue>;
 
 interface ActiveProjectContextType {
@@ -91,7 +96,7 @@ export const ActiveProjectProvider = ({
       group.controls.forEach((control, controlIndex) => {
         const key = control.id ?? `${groupIndex}-${controlIndex}`;
 
-        if (control.type === "slider") {
+        if (isSliderControl(control)) {
           const min = control.min ?? 0;
           const max = control.max ?? 100;
           const step = control.step ?? 1;
@@ -107,8 +112,15 @@ export const ActiveProjectProvider = ({
           values[key] = value;
         }
 
-        if (control.type === "toggle") {
+        if (isToggleControl(control)) {
           values[key] = Math.random() < 0.5;
+        }
+
+        if (isColourControl(control)) {
+          const randomHex = `#${Math.floor(Math.random() * 16777215)
+            .toString(16)
+            .padStart(6, "0")}`;
+          values[key] = randomHex;
         }
       });
     });

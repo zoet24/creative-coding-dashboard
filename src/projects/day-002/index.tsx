@@ -1,9 +1,25 @@
 import { useEffect, useRef } from "react";
 import { createNoise2D } from "simplex-noise";
+import { useActiveProject } from "../../context/ActiveProjectContext";
+import { useControlValue } from "../../hooks/useControlValue";
 
 const Day002 = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const noise2D = useRef(createNoise2D());
+
+  const { get } = useControlValue();
+
+  const { config, controlValues } = useActiveProject();
+  const controlRef = useRef(controlValues);
+  const configRef = useRef(config);
+
+  useEffect(() => {
+    configRef.current = config;
+  }, [config]);
+
+  useEffect(() => {
+    controlRef.current = controlValues;
+  }, [controlValues]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -17,12 +33,15 @@ const Day002 = () => {
     const waveHeight = height / 2;
     let time = 0;
 
-    const amplitude = 50;
-    const frequency = 0.005;
-    const noiseScale = 0.01;
-
     const animate = () => {
       if (!ctx) return;
+
+      requestAnimationFrame(animate);
+
+      const values = controlRef.current;
+      const amplitude = values["amplitude"] as number;
+      const frequency = values["frequency"] as number;
+      const noiseScale = values["noiseScale"] as number;
 
       ctx.clearRect(0, 0, width, height);
 
@@ -41,11 +60,14 @@ const Day002 = () => {
       ctx.lineTo(width, height);
       ctx.lineTo(0, height);
       ctx.closePath();
-      ctx.fillStyle = "#87CEEB"; // Blue water
+      ctx.fillStyle = "#87CEEB";
       ctx.fill();
 
+      if (!configRef.current?.isPlaying) {
+        return;
+      }
+
       time += 1;
-      requestAnimationFrame(animate);
     };
 
     animate();

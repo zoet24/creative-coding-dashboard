@@ -1,7 +1,13 @@
 import { RotateCcw, Shuffle } from "lucide-react";
 import { useActiveProject } from "../../../context/ActiveProjectContext";
+import {
+  isColourControl,
+  isSliderControl,
+  isToggleControl,
+} from "../../../lib/controlTypeGuards";
 import EmptyState from "../../EmptyState/EmptyState";
 import { Button } from "../../ui/button";
+import ColourControl from "./ColourControl/ColourControl";
 import SliderControl from "./SliderControl/SliderControl";
 import ToggleControl from "./ToggleControl/ToggleControl";
 
@@ -24,7 +30,7 @@ const Controls = () => {
             {group.controls.map((control, controlIndex) => {
               const key = control.id ?? `${groupIndex}-${controlIndex}`;
 
-              if (control.type === "slider") {
+              if (isSliderControl(control)) {
                 return (
                   <SliderControl
                     key={key}
@@ -37,47 +43,47 @@ const Controls = () => {
                 );
               }
 
-              if (control.type === "toggle") {
+              if (isToggleControl(control)) {
                 return (
                   <ToggleControl key={key} keyId={key} label={control.label} />
                 );
               }
 
+              if (isColourControl(control)) {
+                return (
+                  <ColourControl key={key} keyId={key} label={control.label} />
+                );
+              }
+
               return null;
-
-              // TOZO: More controls
             })}
-
-            {controlGroups.length > 0 ? (
-              <div className="flex gap-md !mt-lg">
-                <Button
-                  className="w-full"
-                  variant="default"
-                  onClick={randomiseControls}
-                >
-                  <Shuffle className="mr-xxs" />
-                  Randomise
-                </Button>
-                <Button
-                  className="w-full"
-                  variant="outline"
-                  onClick={resetControls}
-                >
-                  <RotateCcw className="mr-xxs" />
-                  Reset
-                </Button>
-              </div>
-            ) : (
-              <EmptyState
-                text={`${
-                  activeProject ? activeProject.title : "This project"
-                } doesn't have
-        any controls.`}
-              />
-            )}
           </div>
         </div>
       ))}
+
+      {controlGroups.length > 0 ? (
+        <div className="flex gap-md !mt-lg">
+          <Button
+            className="w-full"
+            variant="default"
+            onClick={randomiseControls}
+          >
+            <Shuffle className="mr-xxs" />
+            Randomise
+          </Button>
+          <Button className="w-full" variant="outline" onClick={resetControls}>
+            <RotateCcw className="mr-xxs" />
+            Reset
+          </Button>
+        </div>
+      ) : (
+        <EmptyState
+          text={`${
+            activeProject ? activeProject.title : "This project"
+          } doesn't have
+        any controls.`}
+        />
+      )}
     </div>
   );
 };

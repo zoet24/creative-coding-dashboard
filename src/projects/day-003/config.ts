@@ -1,15 +1,15 @@
 import { ProjectConfig } from "../../lib/types";
 
 const config: ProjectConfig = {
-  title: "Day 03 - Sludge Colour",
-  description: "Colourful sludge animation",
+  title: "Day 03 - Wavy wave wave",
+  description: "Waves, but a leetle more complex",
   categories: [],
   slug: "day-003",
   isPlaying: true,
   isAnimated: true,
   controls: [
     {
-      group: "Input",
+      group: "Physics",
       controls: [
         {
           id: "amplitude",
@@ -37,6 +37,17 @@ const config: ProjectConfig = {
           min: 0.001,
           max: 0.1,
           step: 0.001,
+        },
+      ],
+    },
+    {
+      group: "Visual",
+      controls: [
+        {
+          id: "colour",
+          type: "colour",
+          label: "Wave colour",
+          defaultValue: "#87CEEB",
         },
       ],
     },

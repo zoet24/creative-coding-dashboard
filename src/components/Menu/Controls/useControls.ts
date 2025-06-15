@@ -11,5 +11,9 @@ export const useControls = () => {
     updateControlValue(key, val);
   };
 
-  return { values, handleSliderChange, handleToggleChange };
+  const handleColourChange = (key: string, val: string) => {
+    updateControlValue(key, val);
+  };
+
+  return { values, handleSliderChange, handleToggleChange, handleColourChange };
 };
