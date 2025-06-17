@@ -38,6 +38,7 @@ const config: ProjectConfig = {
           max: 0.1,
           step: 0.001,
         },
+        // TOZO: Add wave speed
       ],
     },
     {

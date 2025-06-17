@@ -61,7 +61,6 @@ export const ActiveProjectProvider = ({
     return values;
   };
 
-  // TOZO: Gallery bug where active project flicks around a lot!
   const setProject = ({
     component,
     config: newConfig,
@@ -69,7 +68,7 @@ export const ActiveProjectProvider = ({
     component: React.FC;
     config: ProjectConfig;
   }) => {
-    if (config?.title === newConfig.title) return;
+    if (config?.slug === newConfig.slug) return;
 
     setComponent(() => component);
     setConfig(newConfig);

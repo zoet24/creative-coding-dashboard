@@ -1,13 +1,10 @@
 import { useEffect, useRef } from "react";
 import { createNoise2D } from "simplex-noise";
 import { useActiveProject } from "../../context/ActiveProjectContext";
-import { useControlValue } from "../../hooks/useControlValue";
 
 const Day003 = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const noise2D = useRef(createNoise2D());
-
-  const { get } = useControlValue();
 
   const { config, controlValues } = useActiveProject();
   const controlRef = useRef(controlValues);

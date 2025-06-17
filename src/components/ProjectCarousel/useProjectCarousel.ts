@@ -29,14 +29,14 @@ export const useProjectCarousel = () => {
   }, [activeConfig, projects]);
 
   useEffect(() => {
-    if (!projects.length) return;
+    if (!projects.length || !activeConfig) return;
     const project = projects[currentIndex];
     if (project) {
       loadProject(project.slug).then((loaded) => {
         if (loaded) setProject(loaded);
       });
     }
-  }, [currentIndex, projects, setProject]);
+  }, [projects, currentIndex]);
 
   const goNext = () => {
     setCurrentIndex((i) => (i + 1) % projects.length);
