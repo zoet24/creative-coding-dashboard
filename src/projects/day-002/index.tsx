@@ -39,6 +39,9 @@ const Day002 = () => {
       const amplitude = values["amplitude"] as number;
       const frequency = values["frequency"] as number;
       const noiseScale = values["noiseScale"] as number;
+      const waveSpeed = values["waveSpeed"] as number;
+      const colour =
+        typeof values["colour"] === "string" ? values["colour"] : "#000000";
 
       ctx.clearRect(0, 0, width, height);
 
@@ -46,10 +49,13 @@ const Day002 = () => {
       ctx.moveTo(0, waveHeight);
 
       for (let x = 0; x <= width; x++) {
-        const noiseValue = noise2D.current(x * noiseScale, time * 0.005);
+        const noiseValue = noise2D.current(
+          x * noiseScale,
+          time * waveSpeed * 0.5
+        );
         const y =
           waveHeight +
-          Math.sin(x * frequency + time * 0.01) * amplitude +
+          Math.sin(x * frequency + time * waveSpeed) * amplitude +
           noiseValue * amplitude;
         ctx.lineTo(x, y);
       }
@@ -57,7 +63,7 @@ const Day002 = () => {
       ctx.lineTo(width, height);
       ctx.lineTo(0, height);
       ctx.closePath();
-      ctx.fillStyle = "#87CEEB";
+      ctx.fillStyle = typeof colour === "string" ? colour : "#000000";
       ctx.fill();
 
       if (!configRef.current?.isPlaying) {

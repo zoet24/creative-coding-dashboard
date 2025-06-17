@@ -1,15 +1,15 @@
 import { ProjectConfig } from "../../lib/types";
 
 const config: ProjectConfig = {
-  title: "Day 02 - Wavy wave",
-  description: "Chill blue waves",
+  title: "Day 02 - Wavy wave wave",
+  description: "Waves! Waves!!",
   categories: [],
   slug: "day-002",
   isPlaying: true,
   isAnimated: true,
   controls: [
     {
-      group: "Input",
+      group: "Physics",
       controls: [
         {
           id: "amplitude",
@@ -37,6 +37,26 @@ const config: ProjectConfig = {
           min: 0.001,
           max: 0.1,
           step: 0.001,
+        },
+        {
+          id: "waveSpeed",
+          type: "slider",
+          label: "Speed",
+          defaultValue: 0.01,
+          min: 0.001,
+          max: 0.1,
+          step: 0.001,
+        },
+      ],
+    },
+    {
+      group: "Visual",
+      controls: [
+        {
+          id: "colour",
+          type: "colour",
+          label: "Wave colour",
+          defaultValue: "#87CEEB",
         },
       ],
     },
