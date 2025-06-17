@@ -33,9 +33,9 @@ const config: ProjectConfig = {
           id: "noiseScale",
           type: "slider",
           label: "Noise scale",
-          defaultValue: 0.01,
-          min: 0.001,
-          max: 0.1,
+          defaultValue: 0.008,
+          min: 0.002,
+          max: 0.02,
           step: 0.001,
         },
         {
@@ -44,7 +44,7 @@ const config: ProjectConfig = {
           label: "Speed",
           defaultValue: 0.01,
           min: 0.001,
-          max: 0.1,
+          max: 0.05,
           step: 0.001,
         },
       ],
@@ -52,6 +52,15 @@ const config: ProjectConfig = {
     {
       group: "Visual",
       controls: [
+        {
+          id: "waveCount",
+          type: "slider",
+          label: "Number of waves",
+          defaultValue: 3,
+          min: 1,
+          max: 5,
+          step: 1,
+        },
         {
           id: "colour",
           type: "colour",
