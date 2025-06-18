@@ -1,4 +1,4 @@
-const Day = () => {
+const Project = () => {
   // TOZO: Bring across control refs and other functionality for quick set up
 
   return (
@@ -8,4 +8,4 @@ const Day = () => {
   );
 };
 
-export default Day;
+export default Project;

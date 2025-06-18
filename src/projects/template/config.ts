@@ -1,10 +1,11 @@
 import { ProjectConfig } from "../../lib/types";
 
 const config: ProjectConfig = {
-  title: "Day ## - ",
+  title: "Project",
   description: "",
   categories: [],
-  slug: "day-###",
+  slug: "project-###",
+  isPlaying: true,
 };
 
 export default config;

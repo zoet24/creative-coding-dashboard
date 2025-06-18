@@ -62,18 +62,24 @@ const Controls = () => {
       ))}
 
       {controlGroups.length > 0 ? (
-        <div className="flex gap-md !mt-lg">
+        <div className="flex gap-md">
           <Button
             className="w-full"
             variant="default"
             onClick={randomiseControls}
+            size="sm"
           >
             <Shuffle className="mr-xxs" />
-            Randomise
+            <span className="hidden sm:block">Randomise</span>
           </Button>
-          <Button className="w-full" variant="outline" onClick={resetControls}>
+          <Button
+            className="w-full"
+            variant="outline"
+            size="sm"
+            onClick={resetControls}
+          >
             <RotateCcw className="mr-xxs" />
-            Reset
+            <span className="hidden sm:block">Reset</span>
           </Button>
         </div>
       ) : (

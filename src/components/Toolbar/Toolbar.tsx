@@ -14,23 +14,23 @@ const Toolbar = () => {
           {isPlaying ? (
             <>
               <Pause className="mr-xxs" />
-              Pause
+              <span className="hidden sm:block">Pause</span>
             </>
           ) : (
             <>
               <Play className="mr-xxs" />
-              Play
+              <span className="hidden sm:block">Play</span>
             </>
           )}
         </Button>
       )}
       <Button className="w-full" size="sm" onClick={takeScreenshot}>
         <Camera className="mr-xxs" />
-        Screenshot
+        <span className="hidden sm:block">Screenshot</span>
       </Button>
       <Button className="w-full" size="sm" onClick={toggleFullscreen}>
         <Maximize2 className="mr-xxs" />
-        Fullscreen
+        <span className="hidden sm:block">Fullscreen</span>
       </Button>
     </div>
   );

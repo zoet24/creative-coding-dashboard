@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { createNoise2D } from "simplex-noise";
 import { useActiveProject } from "../../context/ActiveProjectContext";
 
-const Day002 = () => {
+const Project002 = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const noise2D = useRef(createNoise2D());
 
@@ -98,4 +98,4 @@ const Day002 = () => {
   );
 };
 
-export default Day002;
+export default Project002;

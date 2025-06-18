@@ -1,10 +1,10 @@
 import { ProjectConfig } from "../../lib/types";
 
 const config: ProjectConfig = {
-  title: "Day 02 - Wavy wave wave",
+  title: "Wavy wave wave",
   description: "Waves! Waves!!",
   categories: ["Waves", "Physics", "Noise"],
-  slug: "day-002",
+  slug: "project-002",
   isPlaying: true,
   isAnimated: true,
   controls: [

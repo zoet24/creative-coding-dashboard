@@ -1,12 +1,12 @@
 const projectImports: Record<string, () => Promise<any>> = {
-  "day-001": () => import("../projects/day-001/index"),
-  "day-002": () => import("../projects/day-002/index"),
+  "project-001": () => import("../projects/project-001/index"),
+  "project-002": () => import("../projects/project-002/index"),
   // Add all projects here
 };
 
 const configImports: Record<string, () => Promise<any>> = {
-  "day-001": () => import("../projects/day-001/config"),
-  "day-002": () => import("../projects/day-002/config"),
+  "project-001": () => import("../projects/project-001/config"),
+  "project-002": () => import("../projects/project-002/config"),
   // Same here
 };
 
