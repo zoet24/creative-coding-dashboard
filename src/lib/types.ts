@@ -36,6 +36,7 @@ export const projectCategories = [
   "Waves",
   "Physics",
   "Visual",
+  "Noise",
 ] as const;
 
 export type ProjectCategory = (typeof projectCategories)[number];
