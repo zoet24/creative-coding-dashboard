@@ -3,7 +3,7 @@ import { ProjectConfig } from "../../lib/types";
 const config: ProjectConfig = {
   title: "Day 02 - Wavy wave wave",
   description: "Waves! Waves!!",
-  categories: [],
+  categories: ["Generative", "Waves", "Physics", "Visual"],
   slug: "day-002",
   isPlaying: true,
   isAnimated: true,

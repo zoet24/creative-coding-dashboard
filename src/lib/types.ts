@@ -32,12 +32,10 @@ export type ControlGroup = {
 
 // Projects
 export const projectCategories = [
-  "Visual",
-  "Physics",
-  "Audio",
-  "Interaction",
-  "Simulation",
   "Generative",
+  "Waves",
+  "Physics",
+  "Visual",
 ] as const;
 
 export type ProjectCategory = (typeof projectCategories)[number];
