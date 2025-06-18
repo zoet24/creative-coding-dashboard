@@ -1,6 +1,5 @@
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { useActiveProject } from "../../context/ActiveProjectContext";
-import { useIsMobile } from "../../hooks/useIsMobile";
 import ProjectCarousel from "../ProjectCarousel/ProjectCarousel";
 import Toolbar from "../Toolbar/Toolbar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
@@ -15,16 +14,13 @@ interface MenuProps {
 
 const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
   const { config: activeProject } = useActiveProject();
-  const isMobile = useIsMobile();
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <MenuTrigger type="open" setIsOpen={() => setIsOpen(true)} />
       <SheetContent
-        side={isMobile ? "bottom" : "left"}
-        className={`p-lg w-full flex flex-col  ${
-          isMobile ? "h-[95vh]" : "h-full max-w-sm"
-        }`}
+        side="left"
+        className="p-lg w-full flex flex-col h-full max-w-[80vw]"
       >
         <MenuTrigger type="close" setIsOpen={() => setIsOpen(false)} />
         {activeProject && <ProjectCarousel />}
@@ -40,11 +36,9 @@ const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
             <Gallery />
           </TabsContent>
         </Tabs>
-        {!isMobile && (
-          <div className="mt-auto">
-            <Toolbar />
-          </div>
-        )}
+        <div className="mt-auto">
+          <Toolbar />
+        </div>
       </SheetContent>
     </Sheet>
   );
