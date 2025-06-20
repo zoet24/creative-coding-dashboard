@@ -2,9 +2,10 @@ const Project = () => {
   // TOZO: Bring across control refs and other functionality for quick set up
 
   return (
-    <canvas className="w-full h-full">
-      Your browser does not support the canvas element.
-    </canvas>
+    <canvas
+      // ref={canvasRef}
+      style={{ width: "100%", height: "100%", display: "block" }}
+    />
   );
 };
 
