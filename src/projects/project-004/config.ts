@@ -1,10 +1,10 @@
 import { ProjectConfig } from "../../lib/types";
 
 const config: ProjectConfig = {
-  title: "Project",
-  description: "",
-  categories: [],
-  slug: "project-###",
+  title: "Keyboard",
+  description: "A grid that reacts to text input",
+  categories: ["Text", "Keyboard", "Grid"],
+  slug: "project-004",
   isPlaying: true,
   isPublished: false,
 };

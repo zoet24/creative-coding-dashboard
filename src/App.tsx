@@ -4,8 +4,10 @@ import Menu from "./components/Menu/Menu";
 import { useFullscreen } from "./context/FullscreenContext";
 
 function App() {
+  const env = import.meta.env.VITE_ENV;
+
   const { isFullscreen } = useFullscreen();
-  const [menuOpen, setMenuOpen] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(env === "dev" ? false : true);
 
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-background text-foreground">
