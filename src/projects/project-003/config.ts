@@ -7,6 +7,7 @@ const config: ProjectConfig = {
   slug: "project-003",
   isPlaying: true,
   isAnimated: true,
+  isPublished: false,
   controls: [],
 };
 

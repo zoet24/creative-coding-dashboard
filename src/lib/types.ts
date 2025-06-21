@@ -50,6 +50,7 @@ export type ProjectConfig = {
   slug: string;
   isPlaying: boolean;
   isAnimated?: boolean;
+  isPublished?: boolean;
   controls?: ControlGroup[];
 };
 

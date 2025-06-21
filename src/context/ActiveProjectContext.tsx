@@ -7,7 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { WORKING_PROJECT } from "../constants/app";
+import { DEFAULT_PROJECT_PROD, WORKING_PROJECT } from "../constants/app";
 import {
   isColourControl,
   isSliderControl,
@@ -46,6 +46,7 @@ export const ActiveProjectProvider = ({
 }: {
   children: ReactNode;
 }) => {
+  const env = import.meta.env.VITE_ENV;
   const [component, setComponent] = useState<React.FC | null>(null);
   const [config, setConfig] = useState<ProjectConfig | null>(null);
   const [controlValues, setControlValues] = useState<ControlValues>({});
@@ -136,7 +137,14 @@ export const ActiveProjectProvider = ({
   useEffect(() => {
     const load = async () => {
       if (config) return;
-      const defaultProject = await loadProject(WORKING_PROJECT);
+      let defaultProject;
+
+      if (env === "dev") {
+        defaultProject = await loadProject(WORKING_PROJECT);
+      } else {
+        defaultProject = await loadProject(DEFAULT_PROJECT_PROD);
+      }
+
       if (defaultProject) {
         setProject(defaultProject);
       }

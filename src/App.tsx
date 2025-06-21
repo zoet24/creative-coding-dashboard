@@ -5,7 +5,7 @@ import { useFullscreen } from "./context/FullscreenContext";
 
 function App() {
   const { isFullscreen } = useFullscreen();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(true);
 
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-background text-foreground">

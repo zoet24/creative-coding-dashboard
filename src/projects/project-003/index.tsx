@@ -55,7 +55,8 @@ const Project003 = () => {
         const frequency = 0.005 + i * 0.002;
         const noiseScale = 0.0003;
         const speed = i * 0.001;
-        const phaseOffset = i * 1000;
+        const scrollSpeed = (i + 1) * 0.3; // closer hills scroll faster
+        const phaseOffset = time * scrollSpeed;
 
         ctx.beginPath();
         ctx.moveTo(0, groundY + hillOffset);
@@ -83,6 +84,58 @@ const Project003 = () => {
       // Draw ground
       ctx.fillStyle = "#3BAA57"; // grassy green
       ctx.fillRect(0, groundY, width, height * 0.4);
+
+      // Draw tractor
+      const tractorWidth = 100;
+      const tractorHeight = 50;
+      const wheelRadius = 15;
+
+      // Move tractor from left to right
+      const tractorSpeed = 0.5;
+      const totalWidth = width + tractorWidth;
+      const x = width / 2 - tractorWidth / 2;
+
+      const y = groundY - 40;
+
+      // Tractor body (green)
+      ctx.fillStyle = "#228B22";
+      ctx.fillRect(x, y, tractorWidth, tractorHeight);
+
+      // Tractor cabin (yellow)
+      ctx.fillStyle = "#FFD700";
+      ctx.fillRect(x + 60, y - 30, 30, 30);
+
+      // Wheels (black)
+      const drawWheel = (centerX: number, centerY: number) => {
+        // Outer black wheel
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, wheelRadius, 0, Math.PI * 2);
+        ctx.fillStyle = "#000000";
+        ctx.fill();
+
+        // Inner yellow hub
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, wheelRadius * 0.4, 0, Math.PI * 2);
+        ctx.fillStyle = "#FFD700";
+        ctx.fill();
+
+        // Rotating spoke line
+        const angle = (time / 10) % (2 * Math.PI); // adjust speed with divisor
+        const spokeLength = wheelRadius * 0.4;
+        const spokeX = centerX + Math.cos(angle) * spokeLength;
+        const spokeY = centerY + Math.sin(angle) * spokeLength;
+
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.lineTo(spokeX, spokeY);
+        ctx.strokeStyle = "#FFD700";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      };
+
+      // Draw both wheels
+      drawWheel(x + 20, y + tractorHeight);
+      drawWheel(x + 80, y + tractorHeight);
 
       // TOZO - This too!
       // ---
