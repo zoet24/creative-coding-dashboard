@@ -1,9 +1,16 @@
+import { useRef } from "react";
+import { useActiveProject } from "../../context/ActiveProjectContext";
+import { useSyncConfig } from "../utils/useSyncConfig";
+
 const Project = () => {
-  // TOZO: Bring across control refs and other functionality for quick set up
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const { config, controlValues } = useActiveProject();
+  const configRef = useSyncConfig(config);
+  const controlRef = useSyncConfig(controlValues);
 
   return (
     <canvas
-      // ref={canvasRef}
+      ref={canvasRef}
       style={{ width: "100%", height: "100%", display: "block" }}
     />
   );

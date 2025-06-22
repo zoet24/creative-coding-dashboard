@@ -1,22 +1,14 @@
 import { useEffect, useRef } from "react";
 import { createNoise2D } from "simplex-noise";
 import { useActiveProject } from "../../context/ActiveProjectContext";
+import { useSyncConfig } from "../utils/useSyncConfig";
 
 const Project002 = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const noise2D = useRef(createNoise2D());
-
   const { config, controlValues } = useActiveProject();
-  const controlRef = useRef(controlValues);
-  const configRef = useRef(config);
-
-  useEffect(() => {
-    configRef.current = config;
-  }, [config]);
-
-  useEffect(() => {
-    controlRef.current = controlValues;
-  }, [controlValues]);
+  const configRef = useSyncConfig(config);
+  const controlRef = useSyncConfig(controlValues);
+  const noise2D = useRef(createNoise2D());
 
   useEffect(() => {
     const canvas = canvasRef.current;

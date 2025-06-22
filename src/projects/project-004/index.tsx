@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import { useActiveProject } from "../../context/ActiveProjectContext";
+import { activateMatchingKeys } from "../utils/keyboard";
 import { shuffleArray } from "../utils/shuffleArray";
+import { useSyncConfig } from "../utils/useSyncConfig";
 
 const KEY_LIST = [
   ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -25,6 +27,7 @@ const KEY_LIST = [
 ];
 
 const displayLabel = (key: string) => {
+  return "";
   if (key === " ") return "␣";
   if (key === "Enter") return "⏎";
   if (key === "Backspace") return "⌫";
@@ -41,11 +44,10 @@ type Square = {
 
 const Project004 = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const squaresRef = useRef<Square[]>([]);
-
   const { config, controlValues } = useActiveProject();
-  const controlRef = useRef(controlValues);
-  const configRef = useRef(config);
+  const configRef = useSyncConfig(config);
+  const controlRef = useSyncConfig(controlValues);
+  const squaresRef = useRef<Square[]>([]);
 
   // Keep the latest config/control in refs
   useEffect(() => {
@@ -59,7 +61,6 @@ const Project004 = () => {
 
     const initCanvas = () => {
       const values = controlRef.current;
-      const size = values["size"] as number;
       const cols = values["cols"] as number;
       const rows = values["rows"] as number;
       const totalSquares = cols * rows;
@@ -89,17 +90,12 @@ const Project004 = () => {
     };
 
     const handleResize = () => {
-      initCanvas(); // reinitialize on resize
+      initCanvas(); // reinitialise on resize
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      const pressedKey =
-        e.key === " " ? " " : e.key.length === 1 ? e.key.toUpperCase() : e.key;
-      const matchingSquares = squaresRef.current.filter(
-        (sq) => sq.key === pressedKey
-      );
-      matchingSquares.forEach((square) => {
-        square.activatedAt = Date.now();
+      activateMatchingKeys(e.key, squaresRef.current, (sq) => {
+        sq.activatedAt = Date.now();
       });
     };
 
@@ -142,7 +138,7 @@ const Project004 = () => {
       requestAnimationFrame(draw);
     };
 
-    // Initialize on first load
+    // Initialise on first load
     initCanvas();
     draw();
 
@@ -156,13 +152,11 @@ const Project004 = () => {
     };
   }, []);
 
-  // Reinitialize if config/controlValues change
+  // Reinitialise if config/controlValues change
   useEffect(() => {
     if (canvasRef.current) {
       const canvas = canvasRef.current;
-      const ctx = canvas.getContext("2d")!;
       const values = controlRef.current;
-      const size = values["size"] as number;
       const cols = values["cols"] as number;
       const rows = values["rows"] as number;
       const totalSquares = cols * rows;
