@@ -28,7 +28,7 @@ const KEY_LIST = [
 ];
 
 const displayLabel = (key: string) => {
-  return "";
+  // return "";
 
   if (key === " ") return "␣";
   if (key === "Enter") return "⏎";
@@ -43,6 +43,7 @@ type Square = {
   key: string;
   activatedAt: number | null;
   scaleEffect?: number;
+  status?: "active" | "neighbour" | "inactive";
 };
 
 const Project004 = () => {
@@ -104,13 +105,16 @@ const Project004 = () => {
       const scaleFactor = values["scaleFactor"] as number;
 
       activateMatchingKeys(key, squaresRef.current, (sq, index) => {
-        sq.activatedAt = Date.now();
         sq.scaleEffect = (sq.scaleEffect ?? 0) + scaleFactor;
+        sq.status = "active";
+        sq.activatedAt = Date.now();
 
         const neighbors = getNeighbourIndices(index, cols, rows);
         neighbors.forEach((ni) => {
           const neighbor = squaresRef.current[ni];
           neighbor.scaleEffect = (neighbor.scaleEffect ?? 0) + scaleFactor / 2;
+          neighbor.status = "neighbour";
+          neighbor.activatedAt = Date.now();
         });
       });
     };
@@ -143,7 +147,14 @@ const Project004 = () => {
         const color = `rgba(255, 223, 0, ${fade})`;
 
         // ctx.fillStyle = "transparent"; // Cool border effect
-        ctx.fillStyle = isActive ? color : "#fff";
+
+        let baseColor = "255, 255, 255"; // default white
+        if (square.status === "active") {
+          baseColor = "255, 223, 0"; // yellow
+        } else if (square.status === "neighbour") {
+          baseColor = "173, 216, 230"; // light blue
+        }
+        ctx.fillStyle = `rgba(${baseColor}, ${fade})`;
         ctx.fillRect(x, y, sizeScaled, sizeScaled);
 
         ctx.strokeStyle = "#ccc";
@@ -163,6 +174,7 @@ const Project004 = () => {
           square.scaleEffect *= 0.995;
           if (Math.abs(square.scaleEffect) < 0.001) {
             square.scaleEffect = 0;
+            square.status = "inactive";
           }
         }
       });
