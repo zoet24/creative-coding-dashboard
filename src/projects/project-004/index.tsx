@@ -125,46 +125,74 @@ const Project004 = () => {
       });
     };
 
+    const blendColors = (from: string, to: string, t: number) => {
+      const [r1, g1, b1] = from.split(",").map(Number);
+      const [r2, g2, b2] = to.split(",").map(Number);
+
+      const r = Math.round(r1 * t + r2 * (1 - t));
+      const g = Math.round(g1 * t + g2 * (1 - t));
+      const b = Math.round(b1 * t + b2 * (1 - t));
+
+      return `rgb(${r}, ${g}, ${b})`;
+    };
+
     const draw = () => {
       const values = controlRef.current;
       const size = values["size"] as number;
       const cols = values["cols"] as number;
       const rows = values["rows"] as number;
 
-      ctx.fillStyle = `rgb(${colourBg})`; // or any background color you like
+      ctx.fillStyle = `rgb(${colourBg})`;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       const offsetX = (canvas.width - cols * size) / 2;
       const offsetY = (canvas.height - rows * size) / 2;
 
-      squaresRef.current.forEach((square, index) => {
+      // ✅ Sort squares by status: inactive first, then neighbour, then active
+      const sortedSquares = [...squaresRef.current].sort((a, b) => {
+        const statusOrder = { inactive: 0, neighbour: 1, active: 2 };
+        return (
+          (statusOrder[a.status ?? "inactive"] ?? 0) -
+          (statusOrder[b.status ?? "inactive"] ?? 0)
+        );
+      });
+
+      sortedSquares.forEach((square, index) => {
         const scale = 1 + (square.scaleEffect ?? 0);
         const sizeScaled = size * scale;
 
-        const x = offsetX + (index % cols) * size + (size - sizeScaled) / 2;
+        const origIndex = squaresRef.current.indexOf(square); // position in original grid
+        const x = offsetX + (origIndex % cols) * size + (size - sizeScaled) / 2;
         const y =
-          offsetY + Math.floor(index / cols) * size + (size - sizeScaled) / 2;
+          offsetY +
+          Math.floor(origIndex / cols) * size +
+          (size - sizeScaled) / 2;
 
         const timeSince = square.activatedAt
           ? Date.now() - square.activatedAt
           : null;
-
         const isActive = timeSince !== null && timeSince < 2000;
         const fade = isActive ? 1 - timeSince / 2000 : 0;
 
-        // ctx.fillStyle = "transparent"; // Cool border effect
-
         if (square.status === "active") {
-          ctx.fillStyle = `rgba(${colourCellActive}, ${fade})`;
+          ctx.fillStyle = blendColors(
+            colourCellActive,
+            colourCellInactive,
+            fade
+          );
         } else if (square.status === "neighbour") {
-          ctx.fillStyle = `rgba(${colourCellNeighbour}, ${fade})`;
+          ctx.fillStyle = blendColors(
+            colourCellNeighbour,
+            colourCellInactive,
+            fade
+          );
         } else {
           ctx.fillStyle = `rgb(${colourCellInactive})`;
         }
 
         ctx.fillRect(x, y, sizeScaled, sizeScaled);
 
-        ctx.strokeStyle = `rgb(${colourCellBorder})`; // Light blue
+        ctx.strokeStyle = `rgb(${colourCellBorder})`;
         ctx.strokeRect(x, y, sizeScaled, sizeScaled);
 
         ctx.fillStyle = "#000";
@@ -177,6 +205,7 @@ const Project004 = () => {
           y + sizeScaled / 2
         );
 
+        // Decay the effect and reset to inactive
         if (square.scaleEffect) {
           square.scaleEffect *= 0.995;
           if (Math.abs(square.scaleEffect) < 0.001) {
