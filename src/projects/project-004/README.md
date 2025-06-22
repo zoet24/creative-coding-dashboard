@@ -10,3 +10,4 @@ Grid is linked to text input, either from active keyboard typing or text input. 
 - Squares change colour
 - Squares change size
 - Loads of squares
+- Add a fullscreen function

@@ -7,6 +7,38 @@ const config: ProjectConfig = {
   slug: "project-004",
   isPlaying: true,
   isPublished: false,
+  controls: [
+    {
+      group: "Grid",
+      controls: [
+        {
+          id: "size",
+          type: "slider",
+          label: "Square size",
+          defaultValue: 50,
+          min: 25,
+          max: 100,
+          step: 5,
+        },
+        {
+          id: "rows",
+          type: "slider",
+          label: "Number of rows",
+          defaultValue: 10,
+          min: 1,
+          max: 30,
+        },
+        {
+          id: "cols",
+          type: "slider",
+          label: "Number of columns",
+          defaultValue: 10,
+          min: 1,
+          max: 30,
+        },
+      ],
+    },
+  ],
 };
 
 export default config;
