@@ -28,7 +28,7 @@ const KEY_LIST = [
 ];
 
 const displayLabel = (key: string) => {
-  // return "";
+  return "";
 
   if (key === " ") return "␣";
   if (key === "Enter") return "⏎";
@@ -45,6 +45,12 @@ type Square = {
   scaleEffect?: number;
   status?: "active" | "neighbour" | "inactive";
 };
+
+const colourBg = "184, 230, 254"; // tw sky-200
+const colourCellBorder = "116, 212, 255"; // tw sky-300
+const colourCellInactive = "0, 188, 255"; // tw sky-400
+const colourCellNeighbour = "0, 166, 244"; // tw sky-500
+const colourCellActive = "0, 132, 209"; // tw sky-600
 
 const Project004 = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -125,7 +131,8 @@ const Project004 = () => {
       const cols = values["cols"] as number;
       const rows = values["rows"] as number;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = `rgb(${colourBg})`; // or any background color you like
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       const offsetX = (canvas.width - cols * size) / 2;
       const offsetY = (canvas.height - rows * size) / 2;
@@ -144,20 +151,20 @@ const Project004 = () => {
 
         const isActive = timeSince !== null && timeSince < 2000;
         const fade = isActive ? 1 - timeSince / 2000 : 0;
-        const color = `rgba(255, 223, 0, ${fade})`;
 
         // ctx.fillStyle = "transparent"; // Cool border effect
 
-        let baseColor = "255, 255, 255"; // default white
         if (square.status === "active") {
-          baseColor = "255, 223, 0"; // yellow
+          ctx.fillStyle = `rgba(${colourCellActive}, ${fade})`;
         } else if (square.status === "neighbour") {
-          baseColor = "173, 216, 230"; // light blue
+          ctx.fillStyle = `rgba(${colourCellNeighbour}, ${fade})`;
+        } else {
+          ctx.fillStyle = `rgb(${colourCellInactive})`;
         }
-        ctx.fillStyle = `rgba(${baseColor}, ${fade})`;
+
         ctx.fillRect(x, y, sizeScaled, sizeScaled);
 
-        ctx.strokeStyle = "#ccc";
+        ctx.strokeStyle = `rgb(${colourCellBorder})`; // Light blue
         ctx.strokeRect(x, y, sizeScaled, sizeScaled);
 
         ctx.fillStyle = "#000";
