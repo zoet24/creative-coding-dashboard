@@ -11,3 +11,4 @@ Grid is linked to text input, either from active keyboard typing or text input. 
 - Squares change size
 - Loads of squares
 - Add a fullscreen function
+- Have another go at updating z-index by sorting squares and changing drawing order

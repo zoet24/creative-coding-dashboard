@@ -38,6 +38,20 @@ const config: ProjectConfig = {
         },
       ],
     },
+    {
+      group: "Keyboard",
+      controls: [
+        {
+          id: "scaleFactor",
+          type: "slider",
+          label: "Shrink/grow scale",
+          defaultValue: 0.05,
+          min: 0.01,
+          max: 0.5,
+          step: 0.01,
+        },
+      ],
+    },
   ],
 };
 
