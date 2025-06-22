@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useActiveProject } from "../../context/ActiveProjectContext";
+import { activateMatchingKeys } from "../utils/keyboard";
 import { shuffleArray } from "../utils/shuffleArray";
 import { useSyncConfig } from "../utils/useSyncConfig";
 import { getNeighbourIndices } from "./utils/getNeighbourIndices";
@@ -95,12 +96,6 @@ const Project004 = () => {
       initCanvas(); // reinitialise on resize
     };
 
-    // const handleKeyDown = (e: KeyboardEvent) => {
-    //   activateMatchingKeys(e.key, squaresRef.current, (sq) => {
-    //     sq.activatedAt = Date.now();
-    //   });
-    // };
-
     const handleKeyDown = (e: KeyboardEvent) => {
       const key = e.key.toUpperCase();
       const values = controlRef.current;
@@ -108,18 +103,15 @@ const Project004 = () => {
       const rows = values["rows"] as number;
       const scaleFactor = values["scaleFactor"] as number;
 
-      squaresRef.current.forEach((sq, index) => {
-        if (sq.key === key) {
-          sq.activatedAt = Date.now();
-          sq.scaleEffect = (sq.scaleEffect ?? 0) + scaleFactor;
+      activateMatchingKeys(key, squaresRef.current, (sq, index) => {
+        sq.activatedAt = Date.now();
+        sq.scaleEffect = (sq.scaleEffect ?? 0) + scaleFactor;
 
-          // Affect neighbors
-          const neighbors = getNeighbourIndices(index, cols, rows);
-          neighbors.forEach((ni) => {
-            squaresRef.current[ni].scaleEffect =
-              (squaresRef.current[ni].scaleEffect ?? 0) + scaleFactor / 2;
-          });
-        }
+        const neighbors = getNeighbourIndices(index, cols, rows);
+        neighbors.forEach((ni) => {
+          const neighbor = squaresRef.current[ni];
+          neighbor.scaleEffect = (neighbor.scaleEffect ?? 0) + scaleFactor / 2;
+        });
       });
     };
 
@@ -150,7 +142,8 @@ const Project004 = () => {
         const fade = isActive ? 1 - timeSince / 2000 : 0;
         const color = `rgba(255, 223, 0, ${fade})`;
 
-        ctx.fillStyle = isActive ? "transparent" : "transparent"; // TOZOS: Update colours here!
+        // ctx.fillStyle = "transparent"; // Cool border effect
+        ctx.fillStyle = isActive ? color : "#fff";
         ctx.fillRect(x, y, sizeScaled, sizeScaled);
 
         ctx.strokeStyle = "#ccc";

@@ -8,12 +8,12 @@ export const normaliseKey = (key: string): string => {
 export const activateMatchingKeys = <T extends { key: string }>(
   key: string,
   items: T[],
-  activate: (item: T) => void
+  activate: (item: T, index: number) => void
 ) => {
-  const normalised = normaliseKey(key);
-  items.forEach((item) => {
+  const normalised = key.toUpperCase(); // or use `normaliseKey` if needed
+  items.forEach((item, index) => {
     if (item.key === normalised) {
-      activate(item);
+      activate(item, index);
     }
   });
 };
