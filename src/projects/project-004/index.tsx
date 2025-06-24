@@ -43,6 +43,7 @@ type Square = {
   key: string;
   activatedAt: number | null;
   scaleEffect?: number;
+  targetScale?: number;
   status?: "active" | "neighbour" | "inactive";
 };
 
@@ -58,6 +59,7 @@ const Project004 = () => {
   const configRef = useSyncConfig(config);
   const controlRef = useSyncConfig(controlValues);
   const squaresRef = useRef<Square[]>([]);
+  const dimsRef = useRef({ rows: 0, cols: 0 });
 
   // Keep the latest config/control in refs
   useEffect(() => {
@@ -71,8 +73,12 @@ const Project004 = () => {
 
     const initCanvas = () => {
       const values = controlRef.current;
-      const cols = values["cols"] as number;
-      const rows = values["rows"] as number;
+      const size = values["size"] as number;
+      // const cols = values["cols"] as number;
+      // const rows = values["rows"] as number;
+      const cols = Math.floor(canvas.width / size) + 1;
+      const rows = Math.floor(canvas.height / size) + 1;
+      dimsRef.current = { cols, rows };
       const totalSquares = cols * rows;
 
       canvas.width = window.innerWidth;
@@ -106,19 +112,20 @@ const Project004 = () => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const key = e.key.toUpperCase();
       const values = controlRef.current;
-      const cols = values["cols"] as number;
-      const rows = values["rows"] as number;
+      // const cols = values["cols"] as number;
+      // const rows = values["rows"] as number;
+      const { cols, rows } = dimsRef.current;
       const scaleFactor = values["scaleFactor"] as number;
 
       activateMatchingKeys(key, squaresRef.current, (sq, index) => {
-        sq.scaleEffect = (sq.scaleEffect ?? 0) + scaleFactor;
+        sq.targetScale = (sq.targetScale ?? 0) + scaleFactor;
         sq.status = "active";
         sq.activatedAt = Date.now();
 
         const neighbors = getNeighbourIndices(index, cols, rows);
         neighbors.forEach((ni) => {
           const neighbor = squaresRef.current[ni];
-          neighbor.scaleEffect = (neighbor.scaleEffect ?? 0) + scaleFactor / 2;
+          neighbor.targetScale = (neighbor.targetScale ?? 0) + scaleFactor / 2;
           neighbor.status = "neighbour";
           neighbor.activatedAt = Date.now();
         });
@@ -139,8 +146,9 @@ const Project004 = () => {
     const draw = () => {
       const values = controlRef.current;
       const size = values["size"] as number;
-      const cols = values["cols"] as number;
-      const rows = values["rows"] as number;
+      const { cols, rows } = dimsRef.current;
+      // const cols = values["cols"] as number;
+      // const rows = values["rows"] as number;
 
       ctx.fillStyle = `rgb(${colourBg})`;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -160,6 +168,16 @@ const Project004 = () => {
       sortedSquares.forEach((square, index) => {
         const scale = 1 + (square.scaleEffect ?? 0);
         const sizeScaled = size * scale;
+
+        if (square.targetScale !== undefined) {
+          square.scaleEffect = square.scaleEffect ?? 0;
+          square.scaleEffect += (square.targetScale - square.scaleEffect) * 0.1;
+
+          // If very close to target, snap to target
+          if (Math.abs(square.scaleEffect - square.targetScale) < 0.001) {
+            square.scaleEffect = square.targetScale;
+          }
+        }
 
         const origIndex = squaresRef.current.indexOf(square); // position in original grid
         const x = offsetX + (origIndex % cols) * size + (size - sizeScaled) / 2;
@@ -206,10 +224,18 @@ const Project004 = () => {
         );
 
         // Decay the effect and reset to inactive
-        if (square.scaleEffect) {
-          square.scaleEffect *= 0.995;
-          if (Math.abs(square.scaleEffect) < 0.001) {
+        if (square.scaleEffect !== undefined) {
+          square.scaleEffect *= 0.99;
+        }
+        if (square.targetScale !== undefined) {
+          square.targetScale *= 0.99;
+
+          if (
+            Math.abs(square.scaleEffect ?? 0) < 0.001 &&
+            Math.abs(square.targetScale) < 0.001
+          ) {
             square.scaleEffect = 0;
+            square.targetScale = 0;
             square.status = "inactive";
           }
         }
@@ -237,8 +263,12 @@ const Project004 = () => {
     if (canvasRef.current) {
       const canvas = canvasRef.current;
       const values = controlRef.current;
-      const cols = values["cols"] as number;
-      const rows = values["rows"] as number;
+      const size = values["size"] as number;
+      // const cols = values["cols"] as number;
+      // const rows = values["rows"] as number;
+      const cols = Math.floor(canvas.width / size) + 1;
+      const rows = Math.floor(canvas.height / size) + 1;
+      dimsRef.current = { cols, rows };
       const totalSquares = cols * rows;
 
       canvas.width = window.innerWidth;
