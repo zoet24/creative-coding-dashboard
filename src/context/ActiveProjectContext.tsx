@@ -10,6 +10,7 @@ import {
 import { DEFAULT_PROJECT_PROD, WORKING_PROJECT } from "../constants/app";
 import {
   isColourControl,
+  isSelectControl,
   isSliderControl,
   isToggleControl,
 } from "../lib/controlTypeGuards";
@@ -121,6 +122,14 @@ export const ActiveProjectProvider = ({
             .toString(16)
             .padStart(6, "0")}`;
           values[key] = randomHex;
+        }
+
+        if (isSelectControl(control)) {
+          const randomIndex = Math.floor(
+            Math.random() * control.options.length
+          );
+          const randomOption = control.options[randomIndex];
+          values[key] = randomOption.value;
         }
       });
     });
