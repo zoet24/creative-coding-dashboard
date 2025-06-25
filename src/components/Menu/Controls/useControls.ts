@@ -19,11 +19,16 @@ export const useControls = () => {
     updateControlValue(key, val);
   };
 
+  const handleTextAreaChange = (key: string, val: string) => {
+    updateControlValue(key, val);
+  };
+
   return {
     values,
     handleSliderChange,
     handleToggleChange,
     handleColourChange,
     handleSelectChange,
+    handleTextAreaChange,
   };
 };

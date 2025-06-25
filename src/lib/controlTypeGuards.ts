@@ -3,6 +3,7 @@ import {
   Control,
   SelectControl,
   SliderControl,
+  TextAreaControl,
   ToggleControl,
 } from "./types";
 
@@ -17,3 +18,7 @@ export const isColourControl = (control: Control): control is ColourControl =>
 
 export const isSelectControl = (control: Control): control is SelectControl =>
   control.type === "select";
+
+export const isTextAreaInputControl = (
+  control: Control
+): control is TextAreaControl => control.type === "textarea";

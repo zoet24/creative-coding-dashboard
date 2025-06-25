@@ -34,11 +34,19 @@ export type SelectControl = {
   }[];
 };
 
+export type TextAreaControl = {
+  id: string;
+  type: "textarea";
+  label: string;
+  defaultValue: string;
+};
+
 export type Control =
   | SliderControl
   | ToggleControl
   | ColourControl
-  | SelectControl;
+  | SelectControl
+  | TextAreaControl;
 
 export type ControlGroup = {
   group: string;

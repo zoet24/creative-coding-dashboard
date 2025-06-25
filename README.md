@@ -28,6 +28,17 @@ This is a personal dashboard for managing and showcasing creative coding project
 
 - Run `npm run test` to execute unit tests with Jest and React Testing Library.
 
+## Useful bits
+
+### Adding a new control input
+
+- Add new control component folder and file in src/components/Menu/Controls
+- Add handle helper function in src/components/Menu/Controls/useControls.ts
+- Add component in src/components/Menu/Controls/Controls.tsx
+- Add typeguard in src/lib/controlTypeGuards.ts
+- Add new type in src/lib/types.ts, and add new type to Control
+- Add to randomiseControls in src/context/ActiveProjectContext.tsx
+
 ## TOZOS
 
 - Deploy project so you can play on your phone

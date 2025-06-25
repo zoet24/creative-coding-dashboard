@@ -12,8 +12,10 @@ import {
   isColourControl,
   isSelectControl,
   isSliderControl,
+  isTextAreaInputControl,
   isToggleControl,
 } from "../lib/controlTypeGuards";
+import { randomText } from "../lib/randomText";
 
 type ControlValue = number | boolean | string;
 type ControlValues = Record<string, ControlValue>;
@@ -130,6 +132,11 @@ export const ActiveProjectProvider = ({
           );
           const randomOption = control.options[randomIndex];
           values[key] = randomOption.value;
+        }
+
+        if (isTextAreaInputControl(control)) {
+          const randomIndex = Math.floor(Math.random() * randomText.length);
+          values[key] = randomText[randomIndex];
         }
       });
     });

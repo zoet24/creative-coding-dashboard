@@ -4,6 +4,7 @@ import {
   isColourControl,
   isSelectControl,
   isSliderControl,
+  isTextAreaInputControl,
   isToggleControl,
 } from "../../../lib/controlTypeGuards";
 import EmptyState from "../../EmptyState/EmptyState";
@@ -11,6 +12,7 @@ import { Button } from "../../ui/button";
 import ColourControl from "./ColourControl/ColourControl";
 import SelectControl from "./SelectControl/SelectControl";
 import SliderControl from "./SliderControl/SliderControl";
+import TextAreaInputControl from "./TextAreaInputControl/TextAreaInputControl";
 import ToggleControl from "./ToggleControl/ToggleControl";
 
 const Controls = () => {
@@ -64,6 +66,16 @@ const Controls = () => {
                     keyId={key}
                     label={control.label}
                     options={control.options}
+                  />
+                );
+              }
+
+              if (isTextAreaInputControl(control)) {
+                return (
+                  <TextAreaInputControl
+                    key={key}
+                    keyId={key}
+                    label={control.label}
                   />
                 );
               }

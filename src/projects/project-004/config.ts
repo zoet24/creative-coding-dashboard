@@ -63,6 +63,12 @@ const config: ProjectConfig = {
           max: 0.5,
           step: 0.01,
         },
+        {
+          id: "textInput",
+          type: "textarea",
+          label: "Text input",
+          defaultValue: "Boop boop",
+        },
       ],
     },
   ],
