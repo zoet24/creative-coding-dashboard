@@ -2,12 +2,14 @@ import { RotateCcw, Shuffle } from "lucide-react";
 import { useActiveProject } from "../../../context/ActiveProjectContext";
 import {
   isColourControl,
+  isSelectControl,
   isSliderControl,
   isToggleControl,
 } from "../../../lib/controlTypeGuards";
 import EmptyState from "../../EmptyState/EmptyState";
 import { Button } from "../../ui/button";
 import ColourControl from "./ColourControl/ColourControl";
+import SelectControl from "./SelectControl/SelectControl";
 import SliderControl from "./SliderControl/SliderControl";
 import ToggleControl from "./ToggleControl/ToggleControl";
 
@@ -52,6 +54,17 @@ const Controls = () => {
               if (isColourControl(control)) {
                 return (
                   <ColourControl key={key} keyId={key} label={control.label} />
+                );
+              }
+
+              if (isSelectControl(control)) {
+                return (
+                  <SelectControl
+                    key={key}
+                    keyId={key}
+                    label={control.label}
+                    options={control.options}
+                  />
                 );
               }
 

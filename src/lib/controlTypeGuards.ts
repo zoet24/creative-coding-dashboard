@@ -1,4 +1,10 @@
-import { ColourControl, Control, SliderControl, ToggleControl } from "./types";
+import {
+  ColourControl,
+  Control,
+  SelectControl,
+  SliderControl,
+  ToggleControl,
+} from "./types";
 
 export const isSliderControl = (control: Control): control is SliderControl =>
   control.type === "slider";
@@ -8,3 +14,6 @@ export const isToggleControl = (control: Control): control is ToggleControl =>
 
 export const isColourControl = (control: Control): control is ColourControl =>
   control.type === "colour";
+
+export const isSelectControl = (control: Control): control is SelectControl =>
+  control.type === "select";

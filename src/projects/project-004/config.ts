@@ -20,6 +20,19 @@ const config: ProjectConfig = {
           max: 100,
           step: 5,
         },
+        {
+          id: "colourPalette",
+          type: "select",
+          label: "Colour palette",
+          defaultValue: "ocean",
+          options: [
+            { label: "Cool Ocean", value: "ocean" },
+            { label: "Warm Autumn", value: "autumn" },
+            { label: "Soft Forest", value: "forest" },
+            { label: "Dreamy Purple", value: "purple" },
+            { label: "Lava Glow", value: "lava" },
+          ],
+        },
         // {
         //   id: "rows",
         //   type: "slider",

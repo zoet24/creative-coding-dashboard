@@ -15,5 +15,15 @@ export const useControls = () => {
     updateControlValue(key, val);
   };
 
-  return { values, handleSliderChange, handleToggleChange, handleColourChange };
+  const handleSelectChange = (key: string, val: string) => {
+    updateControlValue(key, val);
+  };
+
+  return {
+    values,
+    handleSliderChange,
+    handleToggleChange,
+    handleColourChange,
+    handleSelectChange,
+  };
 };

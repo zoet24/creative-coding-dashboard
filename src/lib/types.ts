@@ -23,7 +23,22 @@ export type ColourControl = {
   defaultValue: string;
 };
 
-export type Control = SliderControl | ToggleControl | ColourControl;
+export type SelectControl = {
+  id: string;
+  type: "select";
+  label: string;
+  defaultValue: string;
+  options: {
+    label: string;
+    value: string;
+  }[];
+};
+
+export type Control =
+  | SliderControl
+  | ToggleControl
+  | ColourControl
+  | SelectControl;
 
 export type ControlGroup = {
   group: string;

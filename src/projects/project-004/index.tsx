@@ -3,6 +3,7 @@ import { useActiveProject } from "../../context/ActiveProjectContext";
 import { activateMatchingKeys } from "../utils/keyboard";
 import { shuffleArray } from "../utils/shuffleArray";
 import { useSyncConfig } from "../utils/useSyncConfig";
+import { ColourPalette, colourPalettes } from "./utils/colourPalettes";
 import { getNeighbourIndices } from "./utils/getNeighbourIndices";
 
 const KEY_LIST = [
@@ -46,12 +47,6 @@ type Square = {
   targetScale?: number;
   status?: "active" | "neighbour" | "inactive";
 };
-
-const colourBg = "184, 230, 254"; // tw sky-200
-const colourCellBorder = "116, 212, 255"; // tw sky-300
-const colourCellInactive = "0, 188, 255"; // tw sky-400
-const colourCellNeighbour = "0, 166, 244"; // tw sky-500
-const colourCellActive = "0, 132, 209"; // tw sky-600
 
 const Project004 = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -147,6 +142,16 @@ const Project004 = () => {
       const values = controlRef.current;
       const size = values["size"] as number;
       const { cols, rows } = dimsRef.current;
+
+      const colourPalette = values["colourPalette"] as ColourPalette;
+      const {
+        colourBg,
+        colourCellActive,
+        colourCellBorder,
+        colourCellInactive,
+        colourCellNeighbour,
+      } = colourPalettes[colourPalette];
+
       // const cols = values["cols"] as number;
       // const rows = values["rows"] as number;
 
