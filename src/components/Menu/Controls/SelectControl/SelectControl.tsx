@@ -20,7 +20,7 @@ const SelectControl = memo(({ keyId, label, options }: SelectControlProps) => {
   const value = values[keyId] as string;
 
   return (
-    <div className="flex flex-col gap-sm">
+    <div className="flex flex-col gap-sm py-1">
       <Label htmlFor={keyId}>{label}</Label>
       <Select
         value={value}

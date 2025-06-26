@@ -7,7 +7,6 @@ const config: ProjectConfig = {
   slug: "project-004",
   isPlaying: true,
   isAnimated: true,
-  isPublished: false,
   controls: [
     {
       group: "Grid",
@@ -72,6 +71,12 @@ const config: ProjectConfig = {
           min: 10,
           max: 1000,
           step: 10,
+        },
+        {
+          id: "showLetters",
+          type: "toggle",
+          label: "Show letters",
+          defaultValue: true,
         },
         {
           id: "textInput",

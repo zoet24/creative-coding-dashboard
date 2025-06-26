@@ -14,17 +14,15 @@ const ColourControl = memo(({ keyId, label }: ColourControlProps) => {
   const value = typeof rawValue === "string" ? rawValue : "#000000";
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-sm">
-        <Label htmlFor={keyId}>{label}</Label>
-        <Input
-          type="color"
-          id={keyId}
-          value={value}
-          onChange={(e) => handleColourChange(keyId, e.target.value)}
-          className="w-8 h-8 p-0 border-none bg-transparent"
-        />
-      </div>
+    <div className="flex justify-between items-center gap-sm py-1">
+      <Label htmlFor={keyId}>{label}</Label>
+      <Input
+        type="color"
+        id={keyId}
+        value={value}
+        onChange={(e) => handleColourChange(keyId, e.target.value)}
+        className="w-8 h-8 p-0 border-none bg-transparent"
+      />
     </div>
   );
 });

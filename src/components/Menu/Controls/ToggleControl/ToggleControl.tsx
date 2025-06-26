@@ -13,7 +13,7 @@ const ToggleControl = memo(({ keyId, label }: ToggleControlProps) => {
   const value = values[keyId] as boolean;
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center gap-sm py-1">
       <Label htmlFor={keyId}>{label}</Label>
       <Switch
         id={keyId}

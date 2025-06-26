@@ -16,7 +16,7 @@ const TextAreaInputControl = memo(
     const value = values[keyId] as string;
 
     return (
-      <div className="flex flex-col gap-sm">
+      <div className="flex flex-col gap-sm py-1">
         <Label htmlFor={keyId}>{label}</Label>
         <Textarea
           id={keyId}

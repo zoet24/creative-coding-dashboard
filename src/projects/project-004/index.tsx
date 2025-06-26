@@ -32,9 +32,9 @@ const KEY_LIST = [
 // Update display label - when letters are active you can see them?
 
 const displayLabel = (key: string) => {
-  return "";
+  // return "";
 
-  if (key === " ") return "␣";
+  if (key === " ") return "";
   if (key === "Enter") return "⏎";
   if (key === "Backspace") return "⌫";
   if (key === "Shift") return "⇧";
@@ -53,7 +53,8 @@ type Square = {
 
 const Project004 = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const { config, controlValues, textAreaFocused } = useActiveProject();
+  const { config, controlValues, textAreaFocused, setTextAreaFocused } =
+    useActiveProject();
   const configRef = useSyncConfig(config);
   const controlRef = useSyncConfig(controlValues);
   const squaresRef = useRef<Square[]>([]);
@@ -144,6 +145,7 @@ const Project004 = () => {
     const draw = () => {
       const values = controlRef.current;
       const size = values["size"] as number;
+      const showLetters = values["showLetters"] as boolean;
       const { cols, rows } = dimsRef.current;
 
       const colourPalette = values["colourPalette"] as ColourPalette;
@@ -221,15 +223,26 @@ const Project004 = () => {
         ctx.strokeStyle = `rgb(${colourCellBorder})`;
         ctx.strokeRect(x, y, sizeScaled, sizeScaled);
 
-        ctx.fillStyle = "#000";
-        ctx.font = "16px sans-serif";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText(
-          displayLabel(square.key),
-          x + sizeScaled / 2,
-          y + sizeScaled / 2
-        );
+        if (
+          square.status === "active" &&
+          timeSince !== null &&
+          timeSince < 2000 &&
+          showLetters
+        ) {
+          const label = displayLabel(square.key);
+          const alpha = 1 - timeSince / 2000;
+          const fontSize = size * 0.6;
+
+          ctx.fillStyle = `rgba(${colourCellBorder}, ${alpha.toFixed(2)})`;
+          ctx.font = `${fontSize}px 'Courier Prime', monospace`;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(
+            label.toLowerCase(),
+            x + sizeScaled / 2,
+            y + sizeScaled / 2
+          );
+        }
 
         // Decay the effect and reset to inactive
         if (square.scaleEffect !== undefined) {
