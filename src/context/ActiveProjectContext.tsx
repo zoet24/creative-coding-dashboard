@@ -29,6 +29,8 @@ interface ActiveProjectContextType {
   resetControls: () => void;
   setProject: (project: { component: React.FC; config: ProjectConfig }) => void;
   setIsPlaying: (playing: boolean) => void;
+  textAreaFocused: boolean;
+  setTextAreaFocused: (focused: boolean) => void;
 }
 
 const ActiveProjectContext = createContext<
@@ -53,6 +55,7 @@ export const ActiveProjectProvider = ({
   const [component, setComponent] = useState<React.FC | null>(null);
   const [config, setConfig] = useState<ProjectConfig | null>(null);
   const [controlValues, setControlValues] = useState<ControlValues>({});
+  const [textAreaFocused, setTextAreaFocused] = useState(false);
 
   const initControlValues = (controlGroups: ControlGroup[]): ControlValues => {
     const values: ControlValues = {};
@@ -179,6 +182,8 @@ export const ActiveProjectProvider = ({
         resetControls,
         setProject,
         setIsPlaying,
+        textAreaFocused,
+        setTextAreaFocused,
       }}
     >
       {children}

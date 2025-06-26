@@ -5,6 +5,7 @@ import { shuffleArray } from "../utils/shuffleArray";
 import { useSyncConfig } from "../utils/useSyncConfig";
 import { ColourPalette, colourPalettes } from "./utils/colourPalettes";
 import { getNeighbourIndices } from "./utils/getNeighbourIndices";
+import { simulateTyping } from "./utils/simulateTyping";
 
 const KEY_LIST = [
   ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -28,6 +29,8 @@ const KEY_LIST = [
   "Escape",
 ];
 
+// Update display label - when letters are active you can see them?
+
 const displayLabel = (key: string) => {
   return "";
 
@@ -50,7 +53,7 @@ type Square = {
 
 const Project004 = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const { config, controlValues } = useActiveProject();
+  const { config, controlValues, textAreaFocused } = useActiveProject();
   const configRef = useSyncConfig(config);
   const controlRef = useSyncConfig(controlValues);
   const squaresRef = useRef<Square[]>([]);
@@ -161,7 +164,7 @@ const Project004 = () => {
       const offsetX = (canvas.width - cols * size) / 2;
       const offsetY = (canvas.height - rows * size) / 2;
 
-      // ✅ Sort squares by status: inactive first, then neighbour, then active
+      // Sort squares by status: inactive first, then neighbour, then active
       const sortedSquares = [...squaresRef.current].sort((a, b) => {
         const statusOrder = { inactive: 0, neighbour: 1, active: 2 };
         return (
@@ -262,6 +265,27 @@ const Project004 = () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
+
+  const typingTimeoutRef = useRef<number[]>([]);
+
+  useEffect(() => {
+    const values = controlRef.current;
+    const typingDelay = values["typingDelay"] as number;
+
+    if (!textAreaFocused && configRef.current?.isPlaying) {
+      simulateTyping(
+        controlValues.textInput as string,
+        typingDelay,
+        true,
+        typingTimeoutRef
+      );
+    }
+
+    return () => {
+      typingTimeoutRef.current.forEach(clearTimeout);
+      typingTimeoutRef.current = [];
+    };
+  }, [config, controlValues, textAreaFocused]);
 
   // Reinitialise if config/controlValues change
   useEffect(() => {

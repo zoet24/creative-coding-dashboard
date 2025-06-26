@@ -1,11 +1,12 @@
 import { ProjectConfig } from "../../lib/types";
 
 const config: ProjectConfig = {
-  title: "Keyboard",
+  title: "Typewriter",
   description: "A grid that reacts to text input",
   categories: ["Text", "Keyboard", "Grid"],
   slug: "project-004",
   isPlaying: true,
+  isAnimated: true,
   isPublished: false,
   controls: [
     {
@@ -64,10 +65,19 @@ const config: ProjectConfig = {
           step: 0.01,
         },
         {
+          id: "typingDelay",
+          type: "slider",
+          label: "Typing delay",
+          defaultValue: 150,
+          min: 10,
+          max: 1000,
+          step: 10,
+        },
+        {
           id: "textInput",
           type: "textarea",
           label: "Text input",
-          defaultValue: "Boop boop",
+          defaultValue: "Typewriter, typewriter, type me some type...",
         },
       ],
     },

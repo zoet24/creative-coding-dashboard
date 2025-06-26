@@ -20,6 +20,7 @@ const Controls = () => {
     config: activeProject,
     randomiseControls,
     resetControls,
+    setTextAreaFocused,
   } = useActiveProject();
   const controlGroups = activeProject?.controls ?? [];
 
@@ -76,6 +77,8 @@ const Controls = () => {
                     key={key}
                     keyId={key}
                     label={control.label}
+                    onFocus={() => setTextAreaFocused(true)}
+                    onBlur={() => setTextAreaFocused(false)}
                   />
                 );
               }

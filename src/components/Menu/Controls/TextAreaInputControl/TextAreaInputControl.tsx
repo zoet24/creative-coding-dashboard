@@ -6,11 +6,12 @@ import { useControls } from "../useControls";
 interface TextAreaInputControlProps {
   keyId: string;
   label: string;
-  placeholder?: string;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 const TextAreaInputControl = memo(
-  ({ keyId, label, placeholder }: TextAreaInputControlProps) => {
+  ({ keyId, label, onFocus, onBlur }: TextAreaInputControlProps) => {
     const { values, handleTextAreaChange } = useControls();
     const value = values[keyId] as string;
 
@@ -19,10 +20,12 @@ const TextAreaInputControl = memo(
         <Label htmlFor={keyId}>{label}</Label>
         <Textarea
           id={keyId}
-          placeholder={placeholder}
+          placeholder="Enter your text here..."
           value={value}
           onChange={(e) => handleTextAreaChange(keyId, e.target.value)}
           rows={4}
+          onFocus={onFocus}
+          onBlur={onBlur}
         />
       </div>
     );
