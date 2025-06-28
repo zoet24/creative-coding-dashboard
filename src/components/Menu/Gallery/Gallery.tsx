@@ -16,7 +16,7 @@ const Gallery = () => {
   } = useGallery();
 
   return (
-    <div className="mt-lg">
+    <>
       <div className="flex gap-2">
         <Input
           placeholder="Search..."
@@ -52,7 +52,7 @@ const Gallery = () => {
           <EmptyState text="No projects found." />
         )}
       </div>
-    </div>
+    </>
   );
 };
 

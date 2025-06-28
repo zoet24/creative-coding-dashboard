@@ -24,19 +24,30 @@ const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
       >
         <MenuTrigger type="close" setIsOpen={() => setIsOpen(false)} />
         {activeProject && <ProjectCarousel />}
-        <Tabs defaultValue="controls" className="w-full">
-          <TabsList className="grid grid-cols-2">
+        <Tabs
+          defaultValue="controls"
+          className="w-full flex flex-col flex-grow overflow-hidden"
+        >
+          <TabsList className="grid grid-cols-2 mb-md">
             <TabsTrigger value="controls">Controls</TabsTrigger>
             <TabsTrigger value="gallery">Gallery</TabsTrigger>
           </TabsList>
-          <TabsContent value="controls">
-            <Controls />
-          </TabsContent>
-          <TabsContent value="gallery">
-            <Gallery />
-          </TabsContent>
+          <div className="flex-grow overflow-y-auto pb-12 scrollbar-hidden">
+            <TabsContent value="controls">
+              <Controls />
+            </TabsContent>
+            <TabsContent value="gallery">
+              <Gallery />
+            </TabsContent>
+          </div>
         </Tabs>
-        <div className="mt-auto">
+        <div
+          className="absolute bottom-0 left-0 right-0 p-lg"
+          style={{
+            background:
+              "linear-gradient(to top, white 80%, rgba(255,255,255,0))",
+          }}
+        >
           <Toolbar />
         </div>
       </SheetContent>

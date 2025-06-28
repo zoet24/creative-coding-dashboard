@@ -25,7 +25,7 @@ const Controls = () => {
   const controlGroups = activeProject?.controls ?? [];
 
   return (
-    <div className="space-y-lg mt-lg">
+    <div className="space-y-md">
       {controlGroups.map((group, groupIndex) => (
         <div key={groupIndex} className="border-2 rounded-sm p-md">
           <h3 className="font-semibold text-sm uppercase tracking-wider">
