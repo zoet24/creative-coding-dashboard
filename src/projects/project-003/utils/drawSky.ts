@@ -1,7 +1,7 @@
 import { colourSchemes } from "./colours";
 import { getTimeOfDay } from "./getTimeOfDay";
 
-export const drawGround = (
+export const drawSky = (
   ctx: CanvasRenderingContext2D,
   width: number,
   height: number
@@ -9,12 +9,6 @@ export const drawGround = (
   const timeOfDay = getTimeOfDay();
   const timeOfDayColour = colourSchemes[timeOfDay];
 
-  ctx.fillStyle = timeOfDayColour.groundBg;
-  ctx.beginPath();
-  ctx.moveTo(-width, 0);
-  ctx.lineTo(width + width, 0);
-  ctx.lineTo(width + width, height);
-  ctx.lineTo(-width, height);
-  ctx.closePath();
-  ctx.fill();
+  ctx.fillStyle = timeOfDayColour.skyBg;
+  ctx.fillRect(0, 0, width, height);
 };

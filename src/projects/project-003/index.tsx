@@ -5,6 +5,7 @@ import { useDeviceOrientation } from "../utils/useDeviceOrientation";
 import { useSyncConfig } from "../utils/useSyncConfig";
 import { drawGround } from "./utils/drawGround";
 import { drawHills } from "./utils/drawHills";
+import { drawSky } from "./utils/drawSky";
 import { SmokeParticle } from "./utils/drawSmoke";
 import { drawTractor } from "./utils/drawTractor";
 
@@ -70,6 +71,7 @@ const Project003 = () => {
 
       ctx.clearRect(0, 0, width, height);
 
+      drawSky(ctx, width, height);
       drawHills(ctx, width, height, groundY, time, noise2D.current);
 
       ctx.save();

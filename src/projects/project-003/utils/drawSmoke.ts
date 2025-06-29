@@ -1,4 +1,5 @@
-import { smokeBg } from "./colours";
+import { colourSchemes } from "./colours";
+import { getTimeOfDay } from "./getTimeOfDay";
 
 export type SmokeParticle = {
   x: number;
@@ -49,6 +50,9 @@ export const updateAndDrawSmoke = (
   ctx: CanvasRenderingContext2D,
   smokeParticles: SmokeParticle[]
 ) => {
+  const timeOfDay = getTimeOfDay();
+  const timeOfDayColour = colourSchemes[timeOfDay];
+
   for (let i = smokeParticles.length - 1; i >= 0; i--) {
     const p = smokeParticles[i];
     p.life += 1;
@@ -61,7 +65,7 @@ export const updateAndDrawSmoke = (
 
     ctx.beginPath();
     ctx.arc(renderX, p.y, p.radius, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(${smokeBg},${p.alpha})`;
+    ctx.fillStyle = `rgba(${timeOfDayColour.smokeBg},${p.alpha})`;
     ctx.fill();
 
     if (p.alpha <= 0) {

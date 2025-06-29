@@ -15,6 +15,12 @@ const config: ProjectConfig = {
           id: "toggleSlope",
           type: "toggle",
           label: "Slope",
+          defaultValue: false,
+        },
+        {
+          id: "toggleTime",
+          type: "toggle",
+          label: "Time",
           defaultValue: true,
         },
       ],

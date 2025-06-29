@@ -1,9 +1,38 @@
-export const tractorBodyGreen = "#228B22";
-export const tractorBodyYellow = "#FFD700";
-export const tractorBodyBlack = "#000000";
-
-export const groundBg = "#3BAA57";
-
-export const hillsBg = ["#6DC96D", "#4FA64D", "#5CB85C"];
-
-export const smokeBg = "50, 50, 50";
+export const colourSchemes = {
+  dawn: {
+    tractorBodyGreen: "#7A8266",
+    tractorBodyYellow: "#D8B066",
+    tractorBodyBlack: "#2B2B2B",
+    groundBg: "#6F7561",
+    skyBg: "#8A8D75",
+    hillsBg: ["#7A8266", "#6F7561", "#5F6555"],
+    smokeBg: "190, 185, 195",
+  },
+  day: {
+    tractorBodyGreen: "#228B22",
+    tractorBodyYellow: "#FFD700",
+    tractorBodyBlack: "#000000",
+    groundBg: "#3BAA57",
+    skyBg: "#87CEFA",
+    hillsBg: ["#6DC96D", "#4FA64D", "#5CB85C"],
+    smokeBg: "50, 50, 50",
+  },
+  sundown: {
+    tractorBodyGreen: "#B48545",
+    tractorBodyYellow: "#FFB347",
+    tractorBodyBlack: "#2F2F2F",
+    groundBg: "#D29048",
+    skyBg: "#F7D488",
+    hillsBg: ["#C98241", "#A86135", "#95552E"],
+    smokeBg: "100, 80, 60",
+  },
+  night: {
+    tractorBodyGreen: "#8A6BBE",
+    tractorBodyYellow: "#C9A44C",
+    tractorBodyBlack: "#1A1A2E",
+    groundBg: "#4B0082",
+    skyBg: "#4B0082",
+    hillsBg: ["#5C3D75", "#462A5A", "#3B244E"],
+    smokeBg: "200, 180, 230",
+  },
+};

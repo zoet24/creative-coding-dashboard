@@ -1,5 +1,6 @@
 import { NoiseFunction2D } from "simplex-noise";
-import { hillsBg } from "./colours";
+import { colourSchemes } from "./colours";
+import { getTimeOfDay } from "./getTimeOfDay";
 
 export const drawHills = (
   ctx: CanvasRenderingContext2D,
@@ -10,6 +11,9 @@ export const drawHills = (
   noise2D: NoiseFunction2D
 ) => {
   const waveCount = 3;
+
+  const timeOfDay = getTimeOfDay();
+  const timeOfDayColour = colourSchemes[timeOfDay];
 
   for (let i = 0; i < waveCount; i++) {
     const amplitude = Math.max(10, height * (0.05 + i * 0.015));
@@ -36,7 +40,7 @@ export const drawHills = (
     ctx.lineTo(width, height);
     ctx.lineTo(0, height);
     ctx.closePath();
-    ctx.fillStyle = hillsBg[i];
+    ctx.fillStyle = timeOfDayColour.hillsBg[i];
     ctx.fill();
   }
 };
