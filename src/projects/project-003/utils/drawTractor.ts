@@ -1,4 +1,8 @@
-import { tractorBodyGreen, tractorBodyYellow } from "./colours";
+import {
+  tractorBodyBlack,
+  tractorBodyGreen,
+  tractorBodyYellow,
+} from "./colours";
 import { SmokeParticle, emitSmoke, updateAndDrawSmoke } from "./drawSmoke";
 
 export const drawTractor = (
@@ -18,7 +22,7 @@ export const drawTractor = (
   const y = groundY - 40 + bounceY;
 
   // Tractor body
-  ctx.fillStyle = "#228B22";
+  ctx.fillStyle = tractorBodyGreen;
   ctx.fillRect(x, y, tractorWidth, tractorHeight);
 
   // Cabin
@@ -44,7 +48,7 @@ export const drawTractor = (
   // Exhaust
   const exhaustX = x - 10;
   const exhaustY = y + tractorHeight;
-  ctx.fillStyle = "#333";
+  ctx.fillStyle = tractorBodyBlack;
   ctx.fillRect(exhaustX, exhaustY - 10, 10, 5);
 
   // Wheels
@@ -56,7 +60,7 @@ export const drawTractor = (
     // Wheel body
     ctx.beginPath();
     ctx.arc(centerX, centerY, wheelRadius, 0, Math.PI * 2);
-    ctx.fillStyle = "#000000";
+    ctx.fillStyle = tractorBodyBlack;
     ctx.fill();
 
     for (let i = 0; i < 6; i++) {
@@ -70,7 +74,7 @@ export const drawTractor = (
         treadAngle,
         treadAngle + Math.PI / 6
       );
-      ctx.strokeStyle = "#000000";
+      ctx.strokeStyle = tractorBodyBlack;
       ctx.lineWidth = 4;
       ctx.stroke();
     }
@@ -78,7 +82,7 @@ export const drawTractor = (
     // Wheel hub
     ctx.beginPath();
     ctx.arc(centerX, centerY, wheelRadius * 0.4, 0, Math.PI * 2);
-    ctx.fillStyle = "#FFD700";
+    ctx.fillStyle = tractorBodyYellow;
     ctx.fill();
   };
 

@@ -1,3 +1,3 @@
 ## What is this project?
 
-Just a big red page.
+A simple project #1 to get the dashboard up and running - kept in for sentimental reasons.

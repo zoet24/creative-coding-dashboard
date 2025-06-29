@@ -6,6 +6,6 @@ export const drawGround = (
   height: number,
   groundY: number
 ) => {
-  ctx.fillStyle = groundBg; // grassy green
+  ctx.fillStyle = groundBg;
   ctx.fillRect(0, groundY, width, height * 0.4);
 };

@@ -7,8 +7,6 @@ import { drawHills } from "./utils/drawHills";
 import { SmokeParticle } from "./utils/drawSmoke";
 import { drawTractor } from "./utils/drawTractor";
 
-// TOZOS: sun going up/down, motion from phone, wheel animation
-
 const Project003 = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const { config } = useActiveProject();

@@ -12,8 +12,8 @@ export const drawHills = (
   const waveCount = 3;
 
   for (let i = 0; i < waveCount; i++) {
-    let hillOffset = i === 2 ? 250 : 300;
-    const amplitude = 40 + i * 15;
+    const amplitude = Math.max(10, height * (0.05 + i * 0.015));
+    const hillOffset = Math.max(20, height * (i === 2 ? 0.25 : 0.3));
     const frequency = 0.005 + i * 0.002;
     const noiseScale = 0.0003;
     const speed = i * 0.001;

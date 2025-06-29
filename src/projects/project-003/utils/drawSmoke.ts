@@ -1,3 +1,5 @@
+import { smokeBg } from "./colours";
+
 export type SmokeParticle = {
   x: number;
   y: number;
@@ -48,7 +50,7 @@ export const updateAndDrawSmoke = (
 
     ctx.beginPath();
     ctx.arc(renderX, p.y, p.radius, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(50,50,50,${p.alpha})`;
+    ctx.fillStyle = `rgba(${smokeBg},${p.alpha})`;
     ctx.fill();
 
     if (p.alpha <= 0) {
