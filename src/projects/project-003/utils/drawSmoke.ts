@@ -14,9 +14,20 @@ export const emitSmoke = (
   smokeParticles: SmokeParticle[],
   x: number,
   y: number,
-  time: number
+  time: number,
+  offsetX: number
 ) => {
-  if (time % 20 === 0) {
+  const maxOffset = 500;
+  let interval;
+  if (offsetX <= 0) {
+    const t = (offsetX + maxOffset) / maxOffset;
+    interval = 10 + t * (20 - 10);
+  } else {
+    const t = offsetX / maxOffset;
+    interval = 20 + t * (30 - 20);
+  }
+
+  if (time % Math.round(interval) === 0) {
     const numParticles = Math.floor(Math.random() * 2) + 3; // 1-2 for continuous
     for (let i = 0; i < numParticles; i++) {
       const angle = -Math.PI + (Math.random() - 0.5) * 0.5;

@@ -77,7 +77,7 @@ const Project003 = () => {
       ctx.rotate(slope);
 
       drawGround(ctx, width, height);
-      drawTractor(ctx, width, groundY, time, smokeParticles, rollOffsetX);
+      drawTractor(ctx, time, smokeParticles, rollOffsetX);
 
       ctx.restore();
 

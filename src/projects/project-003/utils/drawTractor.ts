@@ -7,8 +7,6 @@ import { SmokeParticle, emitSmoke, updateAndDrawSmoke } from "./drawSmoke";
 
 export const drawTractor = (
   ctx: CanvasRenderingContext2D,
-  width: number,
-  groundY: number,
   time: number,
   smokeParticles: SmokeParticle[],
   offsetX: number
@@ -86,11 +84,23 @@ export const drawTractor = (
     ctx.fill();
   };
 
-  const angle = (time / 30) % (2 * Math.PI);
+  const maxOffset = 500;
+
+  let denominator;
+  if (offsetX <= 0) {
+    const t = (offsetX + maxOffset) / maxOffset;
+    denominator = 40 + t * (20 - 40);
+  } else {
+    const t = offsetX / maxOffset;
+    denominator = 20 + t * (10 - 20);
+  }
+
+  const angle = (time / denominator) % (2 * Math.PI);
+
   drawWheel(x + 20, y + tractorHeight - 5, angle);
   drawWheel(x + 80, y + tractorHeight - 5, angle);
 
   // Smoke
-  emitSmoke(smokeParticles, exhaustX + 2, exhaustY - 10, time);
+  emitSmoke(smokeParticles, exhaustX + 2, exhaustY - 10, time, offsetX);
   updateAndDrawSmoke(ctx, smokeParticles);
 };
