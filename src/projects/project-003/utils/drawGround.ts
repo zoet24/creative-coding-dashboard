@@ -3,18 +3,14 @@ import { groundBg } from "./colours";
 export const drawGround = (
   ctx: CanvasRenderingContext2D,
   width: number,
-  height: number,
-  groundY: number,
-  slope: number
+  height: number
 ) => {
-  const extraHeight = height;
-
   ctx.fillStyle = groundBg;
   ctx.beginPath();
-  ctx.moveTo(0, groundY);
-  ctx.lineTo(width, groundY + Math.tan(slope) * width);
-  ctx.lineTo(width, height + extraHeight);
-  ctx.lineTo(0, height + extraHeight);
+  ctx.moveTo(-width, 0);
+  ctx.lineTo(width + width, 0);
+  ctx.lineTo(width + width, height);
+  ctx.lineTo(-width, height);
   ctx.closePath();
   ctx.fill();
 };

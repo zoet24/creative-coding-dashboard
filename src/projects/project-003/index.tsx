@@ -19,7 +19,7 @@ const Project003 = () => {
 
   useEffect(() => {
     const stopListening = useDeviceOrientation(({ gamma }) => {
-      const clampedGamma = Math.max(-45, Math.min(45, gamma));
+      const clampedGamma = Math.max(-80, Math.min(80, gamma));
       targetGamma.current = clampedGamma;
     });
     return stopListening;
@@ -32,15 +32,26 @@ const Project003 = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const width = (canvas.width = window.innerWidth);
-    const height = (canvas.height = window.innerHeight);
     const smokeParticles: SmokeParticle[] = [];
-
-    const groundY = height * 0.6;
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let groundY = height * 0.6;
     let time = 0;
     let slope = 0;
+    let rollOffsetX = 0;
+
+    const resize = () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      groundY = height * 0.6;
+    };
+
+    window.addEventListener("resize", resize);
+    resize();
 
     const animate = () => {
+      if (!configRef.current?.isPlaying) return;
+
       requestAnimationFrame(animate);
 
       const values = controlRef.current;
@@ -54,18 +65,31 @@ const Project003 = () => {
         slope = 0;
       }
 
+      const targetOffsetX = slope * 750;
+      rollOffsetX += (targetOffsetX - rollOffsetX) * 0.1;
+
       ctx.clearRect(0, 0, width, height);
 
       drawHills(ctx, width, height, groundY, time, noise2D.current);
-      drawGround(ctx, width, height, groundY, slope);
-      drawTractor(ctx, width, groundY, time, smokeParticles);
 
-      if (!configRef.current?.isPlaying) return;
+      ctx.save();
+      ctx.translate(width / 2, groundY);
+      ctx.rotate(slope);
+
+      drawGround(ctx, width, height);
+      drawTractor(ctx, width, groundY, time, smokeParticles, rollOffsetX);
+
+      ctx.restore();
+
       time += 1;
     };
 
     animate();
-  }, []);
+
+    return () => {
+      window.removeEventListener("resize", resize);
+    };
+  }, [configRef.current?.isPlaying]);
 
   return (
     <canvas

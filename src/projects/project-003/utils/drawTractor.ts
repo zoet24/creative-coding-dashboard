@@ -10,16 +10,16 @@ export const drawTractor = (
   width: number,
   groundY: number,
   time: number,
-  smokeParticles: SmokeParticle[]
+  smokeParticles: SmokeParticle[],
+  offsetX: number
 ) => {
   const tractorWidth = 100;
   const tractorHeight = 50;
   const wheelRadius = 18;
 
-  const x = width / 2 - tractorWidth / 2;
-
+  const x = -tractorWidth / 2 + offsetX;
   const bounceY = Math.sin(time * 0.1);
-  const y = groundY - 40 + bounceY;
+  const y = -40 + bounceY;
 
   // Tractor body
   ctx.fillStyle = tractorBodyGreen;

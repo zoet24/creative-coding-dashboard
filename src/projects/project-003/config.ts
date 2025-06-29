@@ -15,7 +15,7 @@ const config: ProjectConfig = {
           id: "toggleSlope",
           type: "toggle",
           label: "Slope",
-          defaultValue: false,
+          defaultValue: true,
         },
       ],
     },
