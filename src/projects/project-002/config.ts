@@ -1,7 +1,7 @@
 import { ProjectConfig } from "../../lib/types";
 
 const config: ProjectConfig = {
-  title: "Wavy wave wave",
+  title: "Waves",
   description: "Waves! Waves!!",
   categories: ["Waves", "Physics", "Noise"],
   slug: "project-002",

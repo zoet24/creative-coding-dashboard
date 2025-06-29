@@ -4,9 +4,10 @@ import { useActiveProject } from "../../context/ActiveProjectContext";
 import { useSyncConfig } from "../utils/useSyncConfig";
 import { drawGround } from "./utils/drawGround";
 import { drawHills } from "./utils/drawHills";
-import { SmokeParticle, drawTractor } from "./utils/drawTractor";
+import { SmokeParticle } from "./utils/drawSmoke";
+import { drawTractor } from "./utils/drawTractor";
 
-// TOZOS: bounce animation, sun going up/down, motion from phone
+// TOZOS: sun going up/down, motion from phone, wheel animation
 
 const Project003 = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);

@@ -131,7 +131,7 @@ const Project004 = () => {
       });
     };
 
-    const blendColors = (from: string, to: string, t: number) => {
+    const blendColours = (from: string, to: string, t: number) => {
       const [r1, g1, b1] = from.split(",").map(Number);
       const [r2, g2, b2] = to.split(",").map(Number);
 
@@ -203,13 +203,13 @@ const Project004 = () => {
         const fade = isActive ? 1 - timeSince / 2000 : 0;
 
         if (square.status === "active") {
-          ctx.fillStyle = blendColors(
+          ctx.fillStyle = blendColours(
             colourCellActive,
             colourCellInactive,
             fade
           );
         } else if (square.status === "neighbour") {
-          ctx.fillStyle = blendColors(
+          ctx.fillStyle = blendColours(
             colourCellNeighbour,
             colourCellInactive,
             fade
